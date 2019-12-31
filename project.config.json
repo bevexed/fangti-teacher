@@ -79,6 +79,13 @@
 					"id": -1,
 					"name": "我的明细",
 					"pathName": "pages/wallet/wallet-detail/wallet-detail",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "资质认证",
+					"pathName": "pages/certification/certification",
 					"scene": null
 				}
 			]

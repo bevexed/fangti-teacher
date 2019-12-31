@@ -1,2 +1,25 @@
 <!--pages/certification/certification.wxml-->
-<text>pages/certification/certification.wxml</text>
+<view class="cer">
+  <image class="header-img" src="https://fangti-mcdn.oss-cn-beijing.aliyuncs.com/appstatic/img/ft2/pic_attestation@2x.png">
+  </image>
+
+  <view class="wrap">
+  <image class="cer-img" src="https://fangti-mcdn.oss-cn-beijing.aliyuncs.com/appstatic/img/ft2/pic_read copy@2x.png"></image>
+  </view>
+
+
+  <view class="list">
+    <view class="item">
+     <view class="label">姓名：</view>
+     <view class="value">外网</view>
+    </view>
+     <view class="item">
+     <view class="label">电话：</view>
+     <view class="value">18188888818188</view>
+    </view>
+     <view class="item">
+     <view class="label">职称：</view>
+     <view class="value">国际一级教师</view>
+    </view>
+  </view>
+</view>

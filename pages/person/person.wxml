@@ -16,7 +16,7 @@
       <image class="icon" src='https://fangti-mcdn.oss-cn-beijing.aliyuncs.com/appstatic/img/ft2/ico_class_h%20copy%206@2x.png'></image>
       <view class="label">钱包</view>
     </view>
-    <view class="li">
+    <view class="li" data-url="/pages/certification/certification" bindtap="navigate">
       <image class="icon" src='https://fangti-mcdn.oss-cn-beijing.aliyuncs.com/appstatic/img/ft2/ico_class_h copy 7@2x.png'></image>
       <view class="label">资质认证</view>
     </view>

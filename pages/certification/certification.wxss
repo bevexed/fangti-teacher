@@ -1,1 +1,49 @@
 /* pages/certification/certification.wxss */
+
+.cer {
+  width: 590rpx;
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0px 4px 36px 0px rgba(122, 137, 130, 0.14);
+  border-radius: 32rpx;
+  margin: 76rpx auto;
+  overflow: hidden;
+}
+
+.header-img {
+  width: 590rpx;
+  height: 264rpx;
+}
+
+.wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 350rpx;
+  height: 262rpx;
+  background: rgba(245, 251, 252, 1);
+  border-radius: 32rpx;
+  margin: 44rpx auto;
+}
+
+.cer-img {
+  width: 286rpx;
+  height: 212rpx;
+}
+
+.list {
+  margin: 16rpx 40rpx;
+}
+
+.item {
+  width: 510rpx;
+  display: flex;
+  padding: 28rpx 0;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: rgba(93, 100, 115, 1);
+  border-bottom: 2rpx solid #F5F6F8;
+}
+
+.item:last-child {
+  border: none;
+}
