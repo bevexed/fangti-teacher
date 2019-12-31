@@ -2,9 +2,16 @@
 
 <view class="comments">
 
-  <canvas canvas-id="canvas"style="width: 670rpx; height: 850rpx;">
+  <canvas 
+  disable-scroll
+  bindtouchstart='touchStart'
+  bindtouchmove="touchMove"
+  bindtouchend="touchEnd"
+  canvas-id="canvas"
+  style="width: 670rpx; height: 850rpx;">
 
   </canvas>
+
 
 
   <view class="img-list" wx:if="{{recordState === 'no_r'}}">
