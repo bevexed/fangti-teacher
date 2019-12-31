@@ -1,20 +1,20 @@
 <!--pages/wallet/wallet.wxml-->
 <view class="wallet">
- <view class="header">
-  <view class="header-left">
-    <view class="label">
-      可提现金额
+  <view class="header">
+    <view class="header-left">
+      <view class="label">
+        可提现金额
+      </view>
+      <view class="money">
+        ￥800.00
+      </view>
     </view>
-    <view class="money">
-      ￥800.00
+    <view class="header-right" bindtap="navigate" data-url='/pages/withdraw/withdraw'>
+      立即提现
     </view>
   </view>
-  <view class="header-right">
-    立即提现
-  </view>
- </view>
 
- <view class="ul">
+  <view class="ul">
     <view class="li" bindtap="navigate" data-url="/pages/wallet/wallet-detail/wallet-detail">
       <image class="icon" src='https://fangti-mcdn.oss-cn-beijing.aliyuncs.com/appstatic/img/ft2/ico_definite_h@2x.png'></image>
       <view class="label">我的明细</view>
@@ -23,6 +23,6 @@
       <image class="icon" src='https://fangti-mcdn.oss-cn-beijing.aliyuncs.com/appstatic/img/ft2/ico_wechat_h@2x.png'></image>
       <view class="label">绑定微信收款</view>
     </view>
-  
+
   </view>
 </view>

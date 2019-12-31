@@ -1,2 +1,17 @@
 <!--pages/withdraw/withdraw.wxml-->
-<text>pages/withdraw/withdraw.wxml</text>
+<view class="with-draw">
+  <view class="title">
+  提现金额
+  </view>
+
+  <view class="input-wrap">
+   <view class="label">
+   
+   ￥</view>
+
+   <input placeholder-class="input" placeholder="请输入提现金额"></input>
+  </view>
+
+    <button class="button" bindtap="login">登录</button>
+
+</view>

@@ -93,6 +93,13 @@
 					"id": -1,
 					"name": "待点评",
 					"pathName": "pages/order/order",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "提现",
+					"pathName": "pages/withdraw/withdraw",
 					"scene": null
 				}
 			]
