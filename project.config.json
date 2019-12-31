@@ -86,6 +86,13 @@
 					"id": -1,
 					"name": "资质认证",
 					"pathName": "pages/certification/certification",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "待点评",
+					"pathName": "pages/order/order",
 					"scene": null
 				}
 			]

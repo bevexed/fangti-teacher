@@ -1,2 +1,27 @@
 <!--pages/order/order.wxml-->
-<text>pages/order/order.wxml</text>
+<view class='order'>
+  <view class="ul">
+    <view class="li" wx:for="{{list}}" wx:key="index">
+      <view class="li-header">
+        <image class="avatar"               src="https://i0.hdslb.com/bfs/archive/b3b6c20f9f7c729a4c527bcb5e04ecb154df61e6.jpg@412w_232h_1c_100q.jpg"></image>
+        <text class="name">123</text>
+        <text class='wait'>{{item.state === 1 ? '待点评':'已点评'}}</text>
+      </view>
+
+      <view class="body">
+        <view class="title">
+          唐诗300
+        </view>
+        <view class="price">价格：￥20</view>
+      </view>
+
+      <view class="footer">
+        <view class="sub">《长恨歌》</view>
+        <view class="btn {{item.state === 1 ? 'qdp':'xq'}}">{{item.state === 1 ? '去点评':'详情'}}</view>
+
+      </view>
+
+    </view>
+    
+  </view>
+</view>

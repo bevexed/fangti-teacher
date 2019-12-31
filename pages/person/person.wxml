@@ -4,13 +4,9 @@
     <image class="avatar" src="https://i2.hdslb.com/bfs/archive/6528c295e33b0d7ab1597a78c1b0329f90852250.jpg@320w_200h.webp">
     </image>
   </view>
-
-
   <view class="money">
     累计收益：¥800.00
   </view>
-
-
   <view class="ul">
     <view class="li" bindtap="navigate" data-url="/pages/wallet/wallet">
       <image class="icon" src='https://fangti-mcdn.oss-cn-beijing.aliyuncs.com/appstatic/img/ft2/ico_class_h%20copy%206@2x.png'></image>
@@ -20,7 +16,7 @@
       <image class="icon" src='https://fangti-mcdn.oss-cn-beijing.aliyuncs.com/appstatic/img/ft2/ico_class_h copy 7@2x.png'></image>
       <view class="label">资质认证</view>
     </view>
-    <view class="li">
+    <view class="li"  bindtap="navigate" data-url='/pages/order/order'>
       <image class="icon" src='https://fangti-mcdn.oss-cn-beijing.aliyuncs.com/appstatic/img/ft2/ico_class_h copy 8@2x.png'></image>
       <view class="label">我的订单</view>
     </view>
