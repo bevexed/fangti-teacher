@@ -1,0 +1,31 @@
+<!--pages/comments/comments.wxml-->
+
+<view class="comments">
+
+  <canvas canvas-id="canvas"style="width: 670rpx; height: 850rpx;">
+
+  </canvas>
+
+
+  <view class="img-list" wx:if="{{recordState === 'no_r'}}">
+    <image wx:for="{{grayList}}" class="edit" wx:key="{{index}}" src="https://fangti-mcdn.oss-cn-beijing.aliyuncs.com/appstatic/img/ft2/{{item}}.png">
+    </image>
+  </view>
+
+  <view class="img-list" wx:if="{{recordState === 'ing_r'}}">
+    <image 
+    bindtap="selectEdit"
+    wx:for="{{btnList}}" 
+    class="edit" 
+    wx:key="{{index}}" 
+    data-index="{{index}}"  
+    src="https://fangti-mcdn.oss-cn-beijing.aliyuncs.com/appstatic/img/ft2/{{!item.isSlected?item.g:item.y}}.png">
+    </image>
+  </view>
+
+
+  <image bindtap="startRecord"  wx:if="{{recordState === 'no_r'}}" class="btn" src="./img/btn_record_h@2x.png"></image>
+  <image bindtap="stopRecord" wx:if="{{recordState === 'ing_r'}}" class="btn" src="https://fangti-mcdn.oss-cn-beijing.aliyuncs.com/appstatic/img/ft2/btn_stop_h@2x.png"></image>
+  
+
+</view>

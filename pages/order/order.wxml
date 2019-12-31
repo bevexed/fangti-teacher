@@ -1,7 +1,7 @@
 <!--pages/order/order.wxml-->
 <view class='order'>
   <view class="ul">
-    <view class="li" wx:for="{{list}}" wx:key="index">
+    <view class="li" wx:for="{{list}}" wx:key="index" bindtap="navigate" data-state="{{item.state}}">
       <view class="li-header">
         <image class="avatar"               src="https://i0.hdslb.com/bfs/archive/b3b6c20f9f7c729a4c527bcb5e04ecb154df61e6.jpg@412w_232h_1c_100q.jpg"></image>
         <text class="name">123</text>

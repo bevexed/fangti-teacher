@@ -8,7 +8,8 @@
     "pages/wallet/wallet-detail/wallet-detail",
     "pages/certification/certification",
     "pages/order/order",
-    "pages/order/order-push/order-push"
+    "pages/order-push/order-push",
+    "pages/comments/comments"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -19,17 +20,20 @@
   },
   "tabBar": {
     "custom": true,
-    "list": [{
+    "list": [
+      {
         "pagePath": "pages/index/index",
         "text": "首页",
         "iconPath": "static/img/tab_ico_home_n@2x.png",
         "selectedIconPath": "static/img/tab_ico_home_s@2x.png"
-      },{
+      },
+      {
         "pagePath": "pages/person/person",
         "text": "个人中心",
         "iconPath": "static/img/tab_ico_mine_n.png",
         "selectedIconPath": "static/img/tab_ico_mine_n@2x.png"
-      }]
+      }
+    ]
   },
   "style": "v2",
   "sitemapLocation": "sitemap.json"

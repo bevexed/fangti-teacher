@@ -1,0 +1,23 @@
+/* pages/comments/comments.wxss */
+
+.comments{
+  margin: 40rpx;
+}
+
+.img-list{
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20rpx;
+}
+
+.edit{
+  width: 120rpx;
+  height: 56rpx;
+}
+
+.btn{
+  display: block;
+  margin: 20rpx auto;
+  width: 258rpx;
+  height:238rpx
+}

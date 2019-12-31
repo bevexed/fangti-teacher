@@ -100,6 +100,13 @@
 					"id": -1,
 					"name": "提现",
 					"pathName": "pages/withdraw/withdraw",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "订单点评",
+					"pathName": "pages/comments/comments",
 					"scene": null
 				}
 			]
