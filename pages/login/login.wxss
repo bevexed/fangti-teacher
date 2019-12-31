@@ -1,0 +1,60 @@
+/* pages/login/login.wxss */
+
+.login {
+  height: 100vh;
+  background-image: url('https://fangti-mcdn.oss-cn-beijing.aliyuncs.com/appstatic/img/ft2/bg_mine@2x.png');
+  background-size: 100vw;
+  background-repeat: no-repeat;
+  padding-top: 1px;
+}
+
+.input-wrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 670rpx;
+  height: 384rpx;
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0px 4px 36px 0px rgba(122, 137, 130, 0.14);
+  border-radius: 32rpx;
+  margin: 384rpx auto 104rpx;
+  padding: 80rpx 40rpx;
+  box-sizing: border-box;
+}
+
+.input-item {
+  display: flex;
+  padding-bottom: 32rpx;
+  border-bottom: 2rpx solid #edf2f3;
+}
+
+label {
+  flex-shrink: 0;
+  width: 120rpx;
+  font-size: 32rpx;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: rgba(144, 150, 163, 1);
+}
+
+.input {
+  font-size: 28rpx;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: rgba(223, 227, 235, 1);
+}
+
+.button {
+  padding: 0;
+  width: 590rpx !important;
+  height: 100rpx;
+  line-height: 100rpx;
+  border-radius: 60rpx;
+  font-size: 32rpx;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 1);
+  letter-spacing: 1rpx;
+  background: linear-gradient(90deg, #ffd322, #ffba00);
+  box-shadow: 0 28rpx 20rpx -20rpx #ffd322;
+}

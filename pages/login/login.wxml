@@ -1,0 +1,21 @@
+<!--pages/login/login.wxml-->
+<view class="login">
+  <view class="input-wrap">
+    <view class="input-item">
+      <label>
+        账号
+      </label>
+      <input placeholder="请输入账号" placeholder-class="input"></input>
+    </view>
+
+
+    <view class="input-item">
+      <label>
+        密码
+      </label>
+      <input placeholder="请输入密码" placeholder-class="input"></input>
+    </view>
+  </view>
+
+  <button class="button">登录</button>
+</view>
