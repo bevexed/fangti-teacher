@@ -1,0 +1,68 @@
+/* custom-tab-bar/index.wxss */
+
+.custom-tab-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  position: fixed;
+  bottom: 0;
+  width: 750rpx;
+  height: 98rpx;
+  background: rgba(255, 255, 255, 1);
+}
+
+.item {
+  width: 30%;
+  height: 98rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 22rpx;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  letter-spacing: 1rpx;
+  color: #9096a3;
+}
+
+
+cover-image{
+  width: 64rpx;
+  height: 64rpx;
+}
+
+cover-image.selected {
+  margin-top: -40rpx;
+  width: 106rpx;
+  height: 106rpx;
+}
+
+cover-view{
+  flex-shrink: 0;
+}
+
+cover-view.seleted {
+  color: rgba(0, 189, 129, 1);
+}
+
+@supports (bottom: constant(safe-area-inset-bottom)) or (bottom: env(safe-area-inset-bottom)) {
+
+    .fixed-wrap {
+
+        height: calc(env(safe-area-inset-bottom) /2);
+
+        width:100%;
+
+    }
+
+ 
+
+    .fixed-pay {
+
+        padding-bottom: calc(env(safe-area-inset-bottom) /2);
+
+    }
+
+ 
+
+}

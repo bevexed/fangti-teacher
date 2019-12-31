@@ -1,2 +1,67 @@
 <!--pages/wallet/wallet-detail/wallet-detail.wxml-->
-<text>pages/wallet/wallet-detail/wallet-detail.wxml</text>
+<view class="wallet-detail">
+
+  <view class="header">
+    <view class="bar">
+      <view bindtap="changeBar" data-index="{{index}}" class="item {{cur === index ? 'active':''}}" wx:for="{{barList}}" wx:key="{{index}}">
+        {{item.label}}
+      </view>
+    </view>
+  </view>
+
+  <view class="ul">
+    <view class="li">
+      <view class="li-header">
+        <image class="avatar" src="https://i0.hdslb.com/bfs/archive/b3b6c20f9f7c729a4c527bcb5e04ecb154df61e6.jpg@412w_232h_1c_100q.jpg"></image>
+        <text class="name">123</text>
+      </view>
+
+      <view class="body">
+        <view>
+          <view class="title">
+            唐诗300
+          </view>
+          <view class="sub">《长恨歌》</view>
+
+        </view>
+        <view class="price">+20.00</view>
+
+      </view>
+    </view>
+  </view>
+
+  <view class="detail-list">
+
+    <view class="detail-item">
+      <view class="detail-item-label">
+        提现
+      </view>
+      <view class="detail-item-right">
+        <view class="date">
+          2019.09.09 17:34
+        </view>
+        <view class="money">
+          -50.00
+        </view>
+      </view>
+    </view>
+
+    <view class="detail-item">
+      <view class="detail-item-label">
+        提现
+      </view>
+      <view class="detail-item-right">
+        <view class="date">
+          2019.09.09 17:34
+        </view>
+        <view class="money">
+          -50.00
+        </view>
+      </view>
+    </view>
+
+
+  </view>
+
+
+</view>

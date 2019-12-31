@@ -17,5 +17,5 @@
     </view>
   </view>
 
-  <button class="button">登录</button>
+  <button class="button" bindtap="login">登录</button>
 </view>

@@ -62,5 +62,12 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+
+  navigate(e) {
+    const { url } = e.currentTarget.dataset
+    wx.navigateTo({
+      url,
+    })
   }
 })

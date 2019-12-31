@@ -1,0 +1,7 @@
+<!--custom-tab-bar/index.wxml-->
+<view class="custom-tab-bar fixed-pay">
+  <view class="item {{selected === index ?'active':''}}" wx:for="{{list}}" wx:key="{{index}}" data-path="{{item.pagePath}}" data-index="{{index}}" bindtap="switchTab">
+   <cover-image class="{{selected === index ? 'selected':''}}" src="{{selected === index ? item.selectedIconPath : item.iconPath}}"></cover-image>
+    <cover-view style="color: {{selected === index ? selectedColor : color}}">{{item.text}}</cover-view>
+  </view>
+</view>
