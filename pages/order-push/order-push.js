@@ -11,9 +11,45 @@ Page({
     progressWidth: '',
     btnWidth: 0,
     Max: 0,
-    time:0,
+    time: 0,
     audio: {},
-    pause: true
+    pause: true,
+    btnList: [{
+      y: 'btn_tick_s@2x',
+      g: 'btn_tick_n@2x',
+      e: 'ico_tick_h@2x.png',
+      isSlected: false,
+      name: 'right'
+    }, {
+      y: 'btn_wrong_s@2x',
+      g: 'btn_wrong_n@2x',
+      e: 'ico_del_h@2x.png',
+      isSlected: false,
+      name: 'error'
+    }, {
+      y: 'btn_circle_s@2x',
+      g: 'btn_circle_n@2x',
+      isSlected: false,
+      e: 'pic_circle_h@2x.png',
+      name: 'round'
+    }, {
+      y: 'btn_line_s@2x',
+      g: 'btn_line_n@2x',
+      e: 'pic_line_h@2x.png',
+      isSlected: false,
+      name: 'line'
+    }, {
+      y: 'btn_example_s@2x',
+      g: 'btn_example_n@2x',
+      e: 'ico_tick_h@2x.png',
+      isSlected: false,
+      name: 'expm'
+    }],
+    bg: 'pic_read@2x.png',
+    ctx: {},
+    editSize: 60,
+    canvasWidth: 335,
+    canvasHeight: 425
   },
 
   /**
@@ -23,18 +59,24 @@ Page({
     const query = wx.createSelectorQuery()
     query.select('.audio-progress').boundingClientRect()
     query.select('.btn').boundingClientRect()
+    query.select('.canvas').boundingClientRect()
       .exec((res) => {
         const [{
           width: progressWidth
         }, {
           width: btnWidth
+        }, {
+          width: canvasWidth,
+          height: canvasHeight
         }] = res
         const _width = progressWidth - btnWidth
         const Max = _width / progressWidth * 100;
         this.setData({
           btnWidth,
           progressWidth,
-          Max
+          Max,
+          canvasWidth,
+          canvasHeight
         })
       })
   },
@@ -42,7 +84,9 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
+  onReady: async function() {
+    const ctx = wx.createCanvasContext('canvas', this)
+
     const audio = wx.createInnerAudioContext()
     audio.onCanplay(e => {
       console.log(e, audio.duration)
@@ -59,9 +103,13 @@ Page({
         Max
       } = this.data;
       const marginLeft = currentTime / duration * Max
+      const time = Math.floor(currentTime)
+      this.drawBack()
+      this.drawHistory(time)
+      ctx.draw()
       this.setData({
         marginLeft,
-        time: Math.floor(currentTime)
+        time
       })
     })
 
@@ -79,12 +127,35 @@ Page({
     this.setData({
       audio,
     })
+
+    /////////////////////////////// canvas
+    const {
+      bg,
+      btnList,
+    } = this.data
+    const eList = [...btnList
+      .map(item => item.e), bg
+    ]
+    wx.showLoading({
+      title: '数据加载中',
+    })
+
+    let ePath = await this.downImgs(eList)
+    this.setData({
+      ePath,
+      ctx
+    }, async() => {
+      await this.backImgInfo()
+      await this.drawBack();
+      ctx.draw()
+      wx.hideLoading()
+    })
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
+  onShow: async function() {
 
   },
 
@@ -176,7 +247,7 @@ Page({
       duration
     } = audio;
 
-    const currentTime = Math.floor(duration/Max*marginLeft)
+    const currentTime = Math.floor(duration / Max * marginLeft)
     console.log(currentTime)
     audio.seek(currentTime)
     this.play()
@@ -205,5 +276,122 @@ Page({
     this.setData({
       pause: true
     })
-  }
+  },
+
+  /////////////// canvas
+  async downImgs(urls) {
+    return urls.map(async(item, key) => {
+      return await this.downloadFile('https://fangti-mcdn.oss-cn-beijing.aliyuncs.com/appstatic/img/ft2/' + item)
+    })
+  },
+
+  async downloadFile(url) {
+    return new Promise((resolve, reject) => {
+      wx.downloadFile({
+        url,
+        success: function(res) {
+          resolve(res.tempFilePath)
+        },
+      })
+    })
+
+  },
+
+  async drawBack() {
+    const {
+      ctx,
+      ePath,
+      backImgInfo,
+      canvasWidth,
+      canvasHeight,
+    } = this.data;
+    const {
+      width,
+      height,
+      _height,
+      _width
+    } = backImgInfo
+    await ctx.drawImage(await ePath[5], 0, 0, width, height, 0, 0, canvasWidth, _height)
+  },
+
+  backImgInfo() {
+    return new Promise(async(resolve) => {
+      const {
+        canvasWidth,
+        canvasHeight,
+        ePath
+      } = this.data;
+      wx.getImageInfo({
+        src: await ePath[5],
+        success: async(e) => {
+          const {
+            width,
+            height
+          } = e;
+
+          let _width, _height;
+          if (width < height) {
+            _height = canvasHeight
+            _width = Math.floor(width * _height / height)
+          } else {
+            _width = canvasWidth;
+            _height = Math.floor(_width * height / width)
+          }
+          this.setData({
+            backImgInfo: {
+              width,
+              height,
+              _height,
+              _width
+            }
+          })
+
+          resolve({
+            width,
+            height,
+            _height,
+            _width
+          })
+        }
+      })
+    })
+  },
+  async drawEditor(x, y, btnIndex) {
+    const {
+      ePath,
+      startX,
+      startY,
+      endX,
+      endY,
+      ctx,
+      editSize
+    } = this.data
+    const img = await ePath[btnIndex]
+
+    ctx.drawImage(img, 0, 0, editSize, editSize, x - editSize / 2, y - editSize / 2, editSize / 2, editSize / 2)
+  },
+
+
+
+  drawHistory(curTime) {
+    // const {
+    //   done
+    // } = this.data
+    const done = wx.getStorageSync('done')
+    done.forEach(({
+      x,
+      y,
+      btnIndex,
+      time
+    }) => {
+      if (time >= curTime) return
+      this.drawEditor(x, y, btnIndex)
+    })
+  },
+
+  drawSteps(x, y, btnIndex) {
+    this.drawBack()
+    this.drawEditor(x, y, btnIndex)
+    this.drawHistory()
+  },
 })

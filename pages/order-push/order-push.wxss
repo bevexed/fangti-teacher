@@ -2,6 +2,7 @@
 
 .order-push {
   padding: 40rpx;
+  text-align: center
 }
 
 .order-header {
@@ -49,6 +50,10 @@
   color: rgba(93, 100, 115, 1);
 }
 
+canvas{
+  margin: 62rpx auto 10rpx;
+}
+
 .audio {
   display: flex;
   align-items: center;
@@ -58,6 +63,7 @@
   border-radius: 40rpx;
   padding: 12rpx;
   box-sizing: border-box;
+  margin-top: 10rpx;
 }
 
 .audio-img {

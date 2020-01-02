@@ -74,10 +74,23 @@ Page({
       })
     })
     const ctx = wx.createCanvasContext('canvas', this)
-    this.setData({
-      record,
-      ctx
-    })
+    const query = wx.createSelectorQuery()
+    query.select('.canvas').boundingClientRect()
+      .exec((res) => {
+        const [ {
+          width: canvasWidth,
+          height: canvasHeight
+        }] = res
+        this.setData({
+          canvasWidth,
+          canvasHeight,
+        })
+      })
+
+      this.setData({
+        record,
+        ctx
+      })
   },
 
   /**
@@ -172,7 +185,8 @@ Page({
     const {
       ctx,
       ePath,
-      backImgInfo
+      backImgInfo,
+      canvasWidth
     } = this.data;
     const {
       width,
@@ -180,7 +194,7 @@ Page({
       _height,
       _width
     } = backImgInfo
-    await ctx.drawImage(await ePath[5], 0, 0, width, height, 0, 0, _width, _height)
+    await ctx.drawImage(await ePath[5], 0, 0, width, height, 0, 0, canvasWidth, _height)
   },
 
   backImgInfo() {
@@ -240,6 +254,27 @@ Page({
     ctx.drawImage(img, 0, 0, editSize, editSize, x - editSize / 2, y - editSize / 2, editSize / 2, editSize / 2)
   },
 
+  
+
+  drawHistory() {
+    const {
+      done
+    } = this.data
+    done.forEach(({
+        x,
+        y,
+        btnIndex
+      }) =>
+      this.drawEditor(x, y, btnIndex)
+    )
+  },
+
+  drawSteps(x, y, btnIndex) {
+    this.drawBack()
+    this.drawEditor(x, y, btnIndex)
+    this.drawHistory()
+  },
+
   selectEdit(e) {
     const {
       index,
@@ -266,25 +301,6 @@ Page({
       btnList: _btnList,
       btnIndex: index
     })
-  },
-
-  drawHistory() {
-    const {
-      done
-    } = this.data
-    done.forEach(({
-        x,
-        y,
-        btnIndex
-      }) =>
-      this.drawEditor(x, y, btnIndex)
-    )
-  },
-
-  drawSteps(x, y, btnIndex) {
-    this.drawBack()
-    this.drawEditor(x, y, btnIndex)
-    this.drawHistory()
   },
 
   startRecord() {

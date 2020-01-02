@@ -8,8 +8,9 @@
   bindtouchmove="touchMove"
   bindtouchend="touchEnd"
   canvas-id="canvas"
+  class="canvas"
   style="width: 670rpx; height: 850rpx;">
-
+ 
   </canvas>
 
 
