@@ -1,4 +1,5 @@
 // pages/comments/comments.js
+
 Page({
 
   /**
@@ -9,15 +10,15 @@ Page({
     y: '',
     timer: '',
     done: [],
-    ctx: {},
     record: {},
+    btnIndex: '',
+    ctx: {},
     bg: 'pic_read@2x.png',
     time: 0,
     // no_r 没录音 
     // ing_r 正在录音
     recordState: 'no_r',
     grayList: ['btn_tick_d@2x', 'btn_wrong_d@2x', 'btn_circle_d@2x', 'btn_line_d@2x', 'btn_example_d@2x'],
-    btnIndex: '',
     btnList: [{
       y: 'btn_tick_s@2x',
       g: 'btn_tick_n@2x',
@@ -49,7 +50,13 @@ Page({
       isSlected: false,
       name: 'expm'
     }],
-    ePath: []
+    backImgInfo: {},
+    ePath: [],
+    tempFilePath: '',
+    duration: '',
+    editSize: 60,
+    canvasWidth: 335,
+    canvasHeight: 425
   },
 
   /**
@@ -57,6 +64,15 @@ Page({
    */
   onLoad: function(options) {
     const record = wx.getRecorderManager()
+    record.onStop(({
+      tempFilePath,
+      duration
+    }) => {
+      this.setData({
+        tempFilePath,
+        duration
+      })
+    })
     const ctx = wx.createCanvasContext('canvas', this)
     this.setData({
       record,
@@ -77,12 +93,18 @@ Page({
       .map(item => item.e), bg
     ]
 
+    wx.showLoading({
+      title: '数据加载中',
+    })
+
     let ePath = await this.downImgs(eList)
     this.setData({
       ePath
     }, async() => {
+      await this.backImgInfo()
       await this.drawBack();
       ctx.draw()
+      wx.hideLoading()
     })
 
   },
@@ -149,11 +171,60 @@ Page({
   async drawBack() {
     const {
       ctx,
-      ePath
+      ePath,
+      backImgInfo
     } = this.data;
-    ctx.drawImage(await ePath[5], 0, 0)
+    const {
+      width,
+      height,
+      _height,
+      _width
+    } = backImgInfo
+    await ctx.drawImage(await ePath[5], 0, 0, width, height, 0, 0, _width, _height)
   },
 
+  backImgInfo() {
+    return new Promise(async(resolve) => {
+      const {
+        canvasWidth,
+        canvasHeight,
+        ePath
+      } = this.data;
+      wx.getImageInfo({
+        src: await ePath[5],
+        success: async(e) => {
+          const {
+            width,
+            height
+          } = e;
+
+          let _width, _height;
+          if (width < height) {
+            _height = canvasHeight
+            _width = Math.floor(width * _height / height)
+          } else {
+            _width = canvasWidth;
+            _height = Math.floor(_width * height / width)
+          }
+          this.setData({
+            backImgInfo: {
+              width,
+              height,
+              _height,
+              _width
+            }
+          })
+
+          resolve({
+            width,
+            height,
+            _height,
+            _width
+          })
+        }
+      })
+    })
+  },
   async drawEditor(x, y, btnIndex) {
     const {
       ePath,
@@ -161,11 +232,12 @@ Page({
       startY,
       endX,
       endY,
-      ctx
+      ctx,
+      editSize
     } = this.data
-    const img = await ePath[btnIndex || this.data.btnIndex]
+    const img = await ePath[btnIndex]
 
-    ctx.drawImage(img, x, y)
+    ctx.drawImage(img, 0, 0, editSize, editSize, x - editSize / 2, y - editSize / 2, editSize / 2, editSize / 2)
   },
 
   selectEdit(e) {
@@ -209,19 +281,37 @@ Page({
     )
   },
 
+  drawSteps(x, y, btnIndex) {
+    this.drawBack()
+    this.drawEditor(x, y, btnIndex)
+    this.drawHistory()
+  },
+
   startRecord() {
-    this.timer = setInterval(() => {
+    const {
+      record
+    } = this.data;
+    const open = () => {
       this.setData({
         recordState: 'ing_r',
-        time: this.data.time + 1
+        time: this.data.time + 1,
       })
-    }, 1000)
+    }
+    open()
+    const timer = setInterval(open, 1000)
+    record.start()
+    this.setData({
+      timer
+    })
   },
   stopRecord() {
     const {
       btnList,
-      timer
+      timer,
+      record
     } = this.data
+
+    record.stop()
     clearInterval(timer)
     const _btnList = btnList.map(({
       isSlected,
@@ -231,7 +321,7 @@ Page({
       isSlected: false,
     }))
     this.setData({
-      recordState: 'no_r',
+      recordState: 'end_r',
       btnIndex: '',
       btnList: _btnList
     })
@@ -242,12 +332,15 @@ Page({
       y
     } = e.touches[0];
     const {
-      ctx
+      ctx,
+      btnIndex,
     } = this.data
+    if (typeof btnIndex !== 'number') return (wx.showToast({
+      title: '请选择先选择画笔',
+      icon: 'none'
+    }))
 
-    this.drawBack()
-    this.drawEditor(x, y)
-    this.drawHistory()
+    this.drawSteps(x, y, btnIndex)
     ctx.draw()
 
     this.setData({
@@ -257,7 +350,8 @@ Page({
   },
   touchMove(e) {
     const {
-      ctx
+      ctx,
+      btnIndex
     } = this.data
 
     let {
@@ -276,10 +370,11 @@ Page({
     if (y < 0) {
       y = 0
     }
-    this.drawBack()
-    this.drawEditor(x, y)
-    this.drawHistory()
+
+    if (typeof btnIndex !== 'number') return
+    this.drawSteps(x, y, btnIndex)
     ctx.draw()
+
     this.setData({
       x: Math.floor(x),
       y: Math.floor(y)
@@ -293,16 +388,51 @@ Page({
       y,
       time,
       btnIndex,
+      ctx,
       done
     } = this.data
+
+    if (typeof btnIndex !== 'number') return
+
     done.push({
       x,
       y,
       time,
       btnIndex
     })
+
+    this.drawSteps(x, y, btnIndex)
+    ctx.draw()
+
+
     this.setData({
       done
     }, () => console.log(this.data.done))
+  },
+
+  cancel() {
+    const {
+      ctx
+    } = this.data
+    this.setData({
+      done: [],
+      x: '',
+      y: '',
+      btnIndex: '',
+      timer: '',
+      recordState: 'no_r'
+    }, async() => {
+      await this.drawBack()
+      ctx.draw()
+    })
+
+  },
+  save() {
+    const {done,tempFilePath} = this.data
+    wx.setStorageSync('done',done)
+    wx.setStorageSync('tempFilePath', tempFilePath)
+    wx.navigateTo({
+      url: '/pages/order-push/order-push',
+    })
   }
 })

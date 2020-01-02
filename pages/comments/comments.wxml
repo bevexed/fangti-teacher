@@ -31,8 +31,11 @@
   </view>
 
 
-  <image bindtap="startRecord"  wx:if="{{recordState === 'no_r'}}" class="btn" src="./img/btn_record_h@2x.png"></image>
+  <image bindtap="startRecord"  wx:if="{{recordState === 'no_r' }}" class="btn" src="./img/btn_record_h@2x.png"></image>
   <image bindtap="stopRecord" wx:if="{{recordState === 'ing_r'}}" class="btn" src="https://fangti-mcdn.oss-cn-beijing.aliyuncs.com/appstatic/img/ft2/btn_stop_h@2x.png"></image>
   
-
+<view class="end_r" wx:if="{{recordState === 'end_r'}}" >
+ <view class="cancel" bindtap="cancel">取消</view>
+ <view class="save" bindtap="save">保存</view>
+</view>
 </view>

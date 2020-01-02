@@ -108,6 +108,13 @@
 					"id": -1,
 					"name": "订单点评",
 					"pathName": "pages/comments/comments",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "已提交且点评",
+					"pathName": "pages/order-push/order-push",
 					"scene": null
 				}
 			]
