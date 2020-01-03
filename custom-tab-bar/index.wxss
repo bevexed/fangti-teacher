@@ -26,22 +26,23 @@
 }
 
 
-cover-image{
+image{
   width: 64rpx;
   height: 64rpx;
+  transition: all .3s
 }
 
-cover-image.selected {
+image.selected {
   margin-top: -40rpx;
   width: 106rpx;
   height: 106rpx;
 }
 
-cover-view{
+view{
   flex-shrink: 0;
 }
 
-cover-view.seleted {
+view.seleted {
   color: rgba(0, 189, 129, 1);
 }
 
