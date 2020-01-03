@@ -254,12 +254,15 @@ Page({
     } = this.data
     const img = await ePath[btnIndex]
     
-    const r = canvasWidth/originCanvasWidth 
 
-   let _editSize = editSize  *r;
+    const r = canvasWidth / originCanvasWidth
 
+    const _editSize = editSize * r / 2;
 
-    ctx.drawImage(img, 0, 0, editSize, editSize, x - editSize / 2, y - editSize / 2, _editSize/2, _editSize/2)
+    x = x * r - _editSize / 2
+    y = y * r - _editSize / 2
+
+    ctx.drawImage(img, 0, 0, editSize, editSize, x, y, _editSize, _editSize)
   },
 
   
@@ -358,18 +361,20 @@ Page({
     const {
       ctx,
       btnIndex,
+      canvasWidth,
+      originCanvasWidth
     } = this.data
     if (typeof btnIndex !== 'number') return (wx.showToast({
       title: '请选择先选择画笔',
       icon: 'none'
     }))
+    const r = canvasWidth / originCanvasWidth 
 
-    this.drawSteps(x, y, btnIndex)
+    this.drawSteps(x/r, y/r, btnIndex)
     ctx.draw()
-
     this.setData({
-      x: Math.floor(x),
-      y: Math.floor(y)
+      x: Math.floor(x/r),
+      y: Math.floor(y/r)
     })
   },
   touchMove(e) {
@@ -377,7 +382,8 @@ Page({
       ctx,
       btnIndex,
       canvasWidth,
-      canvasHeight
+      canvasHeight,
+      originCanvasWidth
     } = this.data
 
     let {
@@ -398,12 +404,12 @@ Page({
     }
 
     if (typeof btnIndex !== 'number') return
-    this.drawSteps(x, y, btnIndex)
+    const r = canvasWidth / originCanvasWidth 
+    this.drawSteps(x/r, y/r, btnIndex)
     ctx.draw()
-
     this.setData({
-      x: Math.floor(x),
-      y: Math.floor(y)
+      x: Math.floor(x/r),
+      y: Math.floor(y/r)
     })
 
 
@@ -416,16 +422,12 @@ Page({
       btnIndex,
       ctx,
       done,
-      canvasWidth,
-      originCanvasWidth
     } = this.data
 
     if (typeof btnIndex !== 'number') return
-    const r = canvasWidth / originCanvasWidth 
-
     done.push({
-      x:x/r,
-      y:y/r,
+      x,
+      y,
       time,
       btnIndex
     })
