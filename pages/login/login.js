@@ -87,13 +87,12 @@ Page({
     }else{
       wx.showToast({
         icon:'none',
-        title: '账号或密码错误',
+        title: res.message,
       })
     }
   },
 
   input(e) {
-    console.log(e)
     const {
       detail: {
         value

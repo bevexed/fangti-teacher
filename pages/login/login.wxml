@@ -5,7 +5,7 @@
       <label>
         账号
       </label>
-      <input placeholder="请输入账号" placeholder-class="input" data-label="name" value="{{name}}" bindinput="input"></input>
+      <input placeholder="请输入账号" type="text" placeholder-class="input" data-label="name" value="{{name}}" bindinput="input"></input>
     </view>
 
 
