@@ -6,7 +6,7 @@
         可提现金额
       </view>
       <view class="money">
-        ￥800.00
+        ￥{{userInfo.total_wallet}}
       </view>
     </view>
     <view class="header-right" bindtap="navigate" data-url='/pages/withdraw/withdraw'>

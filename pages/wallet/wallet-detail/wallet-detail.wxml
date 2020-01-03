@@ -9,7 +9,7 @@
     </view>
   </view>
 
-  <view class="ul">
+  <view class="ul" wx:if="{{cur === 0}}">
     <view class="li">
       <view class="li-header">
         <image class="avatar" src="https://i0.hdslb.com/bfs/archive/b3b6c20f9f7c729a4c527bcb5e04ecb154df61e6.jpg@412w_232h_1c_100q.jpg"></image>
@@ -30,32 +30,18 @@
     </view>
   </view>
 
-  <view class="detail-list">
+  <view class="detail-list" wx:if="{{cur === 1}}">
 
-    <view class="detail-item">
+    <view class="detail-item" wx:for="{{WithDrawlList}}" wx:key="index">
       <view class="detail-item-label">
         提现
       </view>
       <view class="detail-item-right">
         <view class="date">
-          2019.09.09 17:34
+         {{item.apply_time}}
         </view>
         <view class="money">
-          -50.00
-        </view>
-      </view>
-    </view>
-
-    <view class="detail-item">
-      <view class="detail-item-label">
-        提现
-      </view>
-      <view class="detail-item-right">
-        <view class="date">
-          2019.09.09 17:34
-        </view>
-        <view class="money">
-          -50.00
+          -{{item.total}}
         </view>
       </view>
     </view>

@@ -1,11 +1,11 @@
 <!--pages/person/person.wxml-->
 <view class="person">
   <view class="header">
-    <image class="avatar" src="https://i2.hdslb.com/bfs/archive/6528c295e33b0d7ab1597a78c1b0329f90852250.jpg@320w_200h.webp">
+    <image class="avatar" src="{{userInfo.avatar}}">
     </image>
   </view>
   <view class="money">
-    累计收益：¥800.00
+    累计收益：¥{{userInfo.total_wallet}}
   </view>
   <view class="ul">
     <view class="li" bindtap="navigate" data-url="/pages/wallet/wallet">

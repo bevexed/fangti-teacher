@@ -9,9 +9,9 @@
    
    ￥</view>
 
-   <input placeholder-class="input" placeholder="请输入提现金额"></input>
+   <input placeholder-class="input" type="number" placeholder="请输入提现金额" bindinput="input"></input>
   </view>
 
-    <button class="button" bindtap="login">登录</button>
+    <button class="button" bindtap="apply">确定</button>
 
 </view>

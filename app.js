@@ -1,17 +1,20 @@
 //app.js
 App({
-  onLaunch: function () {
+  onLaunch: function() {
     // 展示本地存储能力
-    var logs = wx.getStorageSync('logs') || []
-    logs.unshift(Date.now())
-    wx.setStorageSync('logs', logs)
-
+    const token = wx.getStorageSync('token')
+    console.log(token)
+    if (!token) {
+      wx.navigateTo({
+        url: '/pages/login/login',
+      })
+    } 
     // 登录
-    wx.login({
-      success: res => {
-        // 发送 res.code 到后台换取 openId, sessionKey, unionId
-      }
-    })
+    // wx.login({
+    //   success: res => {
+    //     // 发送 res.code 到后台换取 openId, sessionKey, unionId
+    //   }
+    // })
     // 获取用户信息
     wx.getSetting({
       success: res => {
@@ -34,7 +37,7 @@ App({
     })
   },
   globalData: {
-    imgUrl:'https://fangti-mcdn.oss-cn-beijing.aliyuncs.com/appstatic/img/ft2/',
+    imgUrl: 'https://fangti-mcdn.oss-cn-beijing.aliyuncs.com/appstatic/img/ft2/',
     userInfo: null
   }
 })

@@ -1,17 +1,26 @@
 // pages/wallet/wallet-detail/wallet-detail.js
+
+import {
+  ajax
+} from '../../../api/ajax.js'
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    cur:0,
+    cur: 0,
+
     barList: [{
         label: '收益明细'
       },
       {
         label: '提现明细'
-      }]
+      }
+    ],
+
+    WithDrawlList: []
   },
 
   /**
@@ -31,8 +40,8 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
-
+  onShow: async function() {
+    await this.getWithDrawlList()
   },
 
   /**
@@ -70,10 +79,31 @@ Page({
 
   },
 
-  changeBar(e){
-    const {index} = e.currentTarget.dataset
+  changeBar(e) {
+    const {
+      index
+    } = e.currentTarget.dataset
     this.setData({
-      cur:index
+      cur: index
     })
+  },
+
+
+  async getWithDrawlList() {
+    const token = wx.getStorageSync('token')
+    console.log(token)
+    const res = await ajax({
+      url: '/withdrawal/lists',
+      method: 'GET',
+      data: {
+        token
+      }
+    })
+
+    if (res.code === 1) {
+      this.setData({
+        WithDrawlList: res.data.list
+      })
+    }
   }
 })
