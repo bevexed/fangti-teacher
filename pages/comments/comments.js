@@ -56,7 +56,8 @@ Page({
     duration: '',
     editSize: 60,
     canvasWidth: 335,
-    canvasHeight: 425
+    canvasHeight: 425,
+    originCanvasWidth: 335,
   },
 
   /**
@@ -240,18 +241,25 @@ Page({
     })
   },
   async drawEditor(x, y, btnIndex) {
-    const {
+    let {
       ePath,
       startX,
       startY,
       endX,
       endY,
       ctx,
-      editSize
+      editSize,
+      canvasWidth,
+      originCanvasWidth
     } = this.data
     const img = await ePath[btnIndex]
+    
+    const r = canvasWidth/originCanvasWidth 
 
-    ctx.drawImage(img, 0, 0, editSize, editSize, x - editSize / 2, y - editSize / 2, editSize / 2, editSize / 2)
+   let _editSize = editSize  *r;
+
+
+    ctx.drawImage(img, 0, 0, editSize, editSize, x - editSize / 2, y - editSize / 2, _editSize/2, _editSize/2)
   },
 
   
@@ -367,21 +375,23 @@ Page({
   touchMove(e) {
     const {
       ctx,
-      btnIndex
+      btnIndex,
+      canvasWidth,
+      canvasHeight
     } = this.data
 
     let {
       x,
       y
     } = e.touches[0];
-    if (x > 335) {
-      x = 335
+    if (x > canvasWidth) {
+      x = canvasWidth
     }
     if (x < 0) {
       x = 0
     }
-    if (y > 425) {
-      y = 425
+    if (y > canvasHeight) {
+      y = canvasHeight
     }
     if (y < 0) {
       y = 0
@@ -405,14 +415,17 @@ Page({
       time,
       btnIndex,
       ctx,
-      done
+      done,
+      canvasWidth,
+      originCanvasWidth
     } = this.data
 
     if (typeof btnIndex !== 'number') return
+    const r = canvasWidth / originCanvasWidth 
 
     done.push({
-      x,
-      y,
+      x:x/r,
+      y:y/r,
       time,
       btnIndex
     })
@@ -423,7 +436,7 @@ Page({
 
     this.setData({
       done
-    }, () => console.log(this.data.done))
+    })
   },
 
   cancel() {

@@ -49,7 +49,8 @@ Page({
     ctx: {},
     editSize: 60,
     canvasWidth: 335,
-    canvasHeight: 425
+    canvasHeight: 425,
+    originCanvasWidth: 335,
   },
 
   /**
@@ -254,8 +255,8 @@ Page({
   },
 
   play() {
-    const src = 'https://fangtiyuwen.oss-cn-beijing.aliyuncs.com/admin_files/1563837c6f116e91c136e80c397f8303.mp3'
-
+    const src =
+      "https://fangtiyuwen.oss-cn-beijing.aliyuncs.com/admin_files/2ff0721f89347ce62da9a2a3b4493ddc.mp3";
     const {
       audio
     } = this.data;
@@ -357,18 +358,27 @@ Page({
     })
   },
   async drawEditor(x, y, btnIndex) {
-    const {
+    let {
       ePath,
       startX,
       startY,
       endX,
       endY,
       ctx,
-      editSize
+      editSize,
+      canvasWidth,
+      originCanvasWidth
     } = this.data
     const img = await ePath[btnIndex]
 
-    ctx.drawImage(img, 0, 0, editSize, editSize, x - editSize / 2, y - editSize / 2, editSize / 2, editSize / 2)
+    const r = canvasWidth / originCanvasWidth
+
+    const _editSize = editSize * r / 2 ;
+
+    x = x * r -  _editSize /2 
+    y = y * r - _editSize/2
+
+    ctx.drawImage(img, 0, 0, editSize, editSize, x , y, _editSize, _editSize)
   },
 
 
