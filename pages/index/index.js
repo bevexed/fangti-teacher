@@ -126,10 +126,12 @@ Page({
       wx.showToast({
         icon:"none",
         title: res.message,
+        mask:true
       })
     }else{
       wx.showToast({
         title: res.message,
+        mask: true
       })
     }
   }

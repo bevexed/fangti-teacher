@@ -3,21 +3,22 @@
   <view class="order-header">
     <view class="order-left">
       <view class="order-title">
-        唐诗三百首
+        {{c_name}}
       </view>
       <view class="order-sub">
-        《秋叶所见》
+        {{l_name}}
       </view>
     </view>
 
     <view class="order-right">
-      <image class="order-avater" src="https://i0.hdslb.com/bfs/live/37caec0ceb23546471ffb18bf5625398b7681a95.jpg@320w_330h_1c_100q.webp"></image>
-      <view class="name">饭局态度</view>
+      <image class="order-avater" src="{{picture}}"></image>
+      <view class="name">{{nick_name}}</view>
     </view>
 
   </view>
 
   <canvas canvas-id="canvas" class="canvas" style="width: 670rpx; height: 850rpx;"></canvas>
+<image src="{{correct_display}}" wx:if="{{show_correct_display}}" class="small-pic"></image>
 
   <view class="audio">
     <image wx:if="{{!pause}}" bindtap="Pause" class="audio-img" src="./img/btn_stop_h@2x.png"></image>

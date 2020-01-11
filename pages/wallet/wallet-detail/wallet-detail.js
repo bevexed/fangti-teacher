@@ -20,7 +20,8 @@ Page({
       }
     ],
 
-    WithDrawlList: []
+    WithDrawlList: [],
+    IncomeList: []
   },
 
   /**
@@ -40,8 +41,8 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: async function() {
-    await this.getWithDrawlList()
+  onShow: function() {
+    this.changeBar({currentTarget:{dataset:{index:0}}})
   },
 
   /**
@@ -79,24 +80,49 @@ Page({
 
   },
 
-  changeBar(e) {
+  async changeBar(e) {
     const {
       index
     } = e.currentTarget.dataset
+    if (index === 0) {
+      await this.getInComeList()
+
+    } else {
+      await this.getWithDrawlList()
+
+    }
+
     this.setData({
       cur: index
     })
+  },
+  async getInComeList() {
+    const token = wx.getStorageSync('token')
+    const res = await ajax({
+      url: '/my/income/list',
+      method: 'GET',
+      data: {
+        token,
+        page_size: 1000
+      }
+    })
+
+    if (res.code === 1) {
+      this.setData({
+        IncomeList: res.data.list
+      })
+    }
   },
 
 
   async getWithDrawlList() {
     const token = wx.getStorageSync('token')
-    console.log(token)
     const res = await ajax({
       url: '/withdrawal/lists',
       method: 'GET',
       data: {
-        token
+        token,
+        page_size: 1000
       }
     })
 

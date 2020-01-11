@@ -1,5 +1,9 @@
 // pages/comments/comments.js
 
+import {
+  ajax
+} from '../../api/ajax.js'
+
 Page({
 
   /**
@@ -46,10 +50,11 @@ Page({
     }, {
       y: 'btn_example_s@2x',
       g: 'btn_example_n@2x',
-      e: 'ico_tick_h@2x.png',
+      e: '',
       isSlected: false,
       name: 'expm'
     }],
+    show_correct_display: false,
     backImgInfo: {},
     ePath: [],
     tempFilePath: '',
@@ -58,12 +63,16 @@ Page({
     canvasWidth: 335,
     canvasHeight: 425,
     originCanvasWidth: 335,
+    correct_display: '',
+    uw_id: ''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
+  onLoad: async function(options) {
+    await this.getOrderDetail(options.id)
+
     const record = wx.getRecorderManager()
     record.onStop(({
       tempFilePath,
@@ -78,7 +87,7 @@ Page({
     const query = wx.createSelectorQuery()
     query.select('.canvas').boundingClientRect()
       .exec((res) => {
-        const [ {
+        const [{
           width: canvasWidth,
           height: canvasHeight
         }] = res
@@ -88,20 +97,16 @@ Page({
         })
       })
 
-      this.setData({
-        record,
-        ctx
-      })
-  },
+    this.setData({
+      record,
+      ctx,
+      uw_id: options.id
+    })
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: async function() {
+    ////////////////////////////////////////////////
     const {
       bg,
       btnList,
-      ctx
     } = this.data
     const eList = [...btnList
       .map(item => item.e), bg
@@ -120,6 +125,13 @@ Page({
       ctx.draw()
       wx.hideLoading()
     })
+
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: async function() {
 
   },
 
@@ -166,7 +178,7 @@ Page({
   },
   async downImgs(urls) {
     return urls.map(async(item, key) => {
-      return await this.downloadFile('https://fangti-mcdn.oss-cn-beijing.aliyuncs.com/appstatic/img/ft2/' + item)
+      return await this.downloadFile(item.includes('https') ? item : ('https://fangti-mcdn.oss-cn-beijing.aliyuncs.com/appstatic/img/ft2/' + item))
     })
   },
 
@@ -253,7 +265,7 @@ Page({
       originCanvasWidth
     } = this.data
     const img = await ePath[btnIndex]
-    
+
 
     const r = canvasWidth / originCanvasWidth
 
@@ -265,7 +277,7 @@ Page({
     ctx.drawImage(img, 0, 0, editSize, editSize, x, y, _editSize, _editSize)
   },
 
-  
+
 
   drawHistory() {
     const {
@@ -312,6 +324,11 @@ Page({
       btnList: _btnList,
       btnIndex: index
     })
+    if (index === 4) {
+      this.setData({
+        show_correct_display: true
+      })
+    }
   },
 
   startRecord() {
@@ -325,7 +342,7 @@ Page({
       })
     }
     open()
-    const timer = setInterval(open, 1000)
+    const timer = setInterval(open, 200)
     record.start()
     this.setData({
       timer
@@ -368,13 +385,13 @@ Page({
       title: '请选择先选择画笔',
       icon: 'none'
     }))
-    const r = canvasWidth / originCanvasWidth 
+    const r = canvasWidth / originCanvasWidth
 
-    this.drawSteps(x/r, y/r, btnIndex)
+    this.drawSteps(x / r, y / r, btnIndex)
     ctx.draw()
     this.setData({
-      x: Math.floor(x/r),
-      y: Math.floor(y/r)
+      x: Math.floor(x / r),
+      y: Math.floor(y / r)
     })
   },
   touchMove(e) {
@@ -404,12 +421,12 @@ Page({
     }
 
     if (typeof btnIndex !== 'number') return
-    const r = canvasWidth / originCanvasWidth 
-    this.drawSteps(x/r, y/r, btnIndex)
+    const r = canvasWidth / originCanvasWidth
+    this.drawSteps(x / r, y / r, btnIndex)
     ctx.draw()
     this.setData({
-      x: Math.floor(x/r),
-      y: Math.floor(y/r)
+      x: Math.floor(x / r),
+      y: Math.floor(y / r)
     })
 
 
@@ -432,12 +449,11 @@ Page({
       btnIndex
     })
 
-    this.drawSteps(x, y, btnIndex)
-    ctx.draw()
-
-
     this.setData({
       done
+    }, () => {
+      this.drawSteps(x, y, btnIndex)
+      ctx.draw()
     })
   },
 
@@ -458,12 +474,89 @@ Page({
     })
 
   },
-  save() {
-    const {done,tempFilePath} = this.data
-    wx.setStorageSync('done',done)
+  async save() {
+    const {
+      done,
+      tempFilePath,
+      uw_id
+    } = this.data
+    wx.setStorageSync('done', done)
     wx.setStorageSync('tempFilePath', tempFilePath)
+    wx.showLoading({
+      title: '音频上传中',
+      mask: true
+    })
+    const audio = await this.upload(tempFilePath)
+    wx.hideLoading()
+    wx.showLoading({
+      title: '数据操作记录上传中',
+    })
+    await this.AjaxSave(audio)
+    wx.hideLoading()
     wx.navigateTo({
-      url: '/pages/order-push/order-push',
+      url: '/pages/order-push/order-push?uw_id=' + uw_id,
+    })
+  },
+
+
+  async getOrderDetail(id) {
+    const token = wx.getStorageSync('token');
+    const res = await ajax({
+      url: '/my/order/detail',
+      method: "GET",
+      data: {
+        uw_id: id,
+        token
+      }
+    })
+    if (res.code === 1) {
+      const {
+        picture,
+        correct_display
+      } = res.data
+      this.setData({
+        bg: picture,
+        correct_display
+      })
+    }
+  },
+
+  upload(filePath) {
+    const token = wx.getStorageSync('token')
+    return new Promise((resolve, reject) => {
+      wx.uploadFile({
+        url: 'https://teacher.fangti.com/api/' + "file/uploads", //仅为示例，非真实的接口地址
+        filePath,
+        formData: {
+          token
+        },
+        name: "file",
+        success: uploadFileRes => {
+          console.log(uploadFileRes.data);
+          resolve(JSON.parse(uploadFileRes.data).data);
+        },
+        fail(err) {
+          console.log(err)
+        }
+      });
+    });
+  },
+
+  async AjaxSave(audio) {
+    const {
+      uw_id,
+      done,
+    } = this.data
+    const token = wx.getStorageSync('token');
+    const res = await ajax({
+      url: '/save/data',
+      method: 'POST',
+      data: {
+        token,
+        uw_id,
+        content: JSON.stringify(done),
+        audio
+      }
     })
   }
 })

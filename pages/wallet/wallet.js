@@ -91,5 +91,46 @@ Page({
         userInfo: res.data
       })
     }
+  },
+
+  bind() {
+    const token = wx.getStorageSync('token');
+
+    wx.login({
+      success(res) {
+        if (res.code) {
+          //发起网络请求
+          wx.request({
+            method: "GET",
+            url: 'https://api.weixin.qq.com/sns/jscode2session',
+            data: {
+              js_code: res.code,
+              appid:'wxde4e32f6d4258e2e',
+              secret:'99e0caa07b1df37ea79b872696be93cb',
+              grant_type:'authorization_code'
+            },
+            success(res){
+              console.log(res)
+              ajax({
+                method:'POST',
+                url: '/wechat/login',
+                data:{
+                  token,
+                  open_id: res.data.openid
+                }
+              }).then(res=>wx.showToast({
+                icon:'none',
+                title: res.message,
+              }))
+            }
+          })
+        } else {
+          wx.showToast({
+            title: '请求失败',
+            mask: true
+          })
+        }
+      }
+    })
   }
 })

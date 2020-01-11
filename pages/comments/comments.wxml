@@ -2,41 +2,28 @@
 
 <view class="comments">
 
-  <canvas 
-  disable-scroll
-  bindtouchstart='touchStart'
-  bindtouchmove="touchMove"
-  bindtouchend="touchEnd"
-  canvas-id="canvas"
-  class="canvas"
-  style="width: 670rpx; height: 850rpx;">
- 
+  <canvas disable-scroll bindtouchstart='touchStart' bindtouchmove="touchMove" bindtouchend="touchEnd" canvas-id="canvas" class="canvas" style="width: 670rpx; height: 850rpx;">
+
   </canvas>
 
 
-
+<image src="{{correct_display}}" wx:if="{{show_correct_display}}" class="small-pic"></image>
   <view class="img-list" wx:if="{{recordState === 'no_r'}}">
     <image wx:for="{{grayList}}" class="edit" wx:key="{{index}}" src="https://fangti-mcdn.oss-cn-beijing.aliyuncs.com/appstatic/img/ft2/{{item}}.png">
     </image>
   </view>
 
   <view class="img-list" wx:if="{{recordState === 'ing_r'}}">
-    <image 
-    bindtap="selectEdit"
-    wx:for="{{btnList}}" 
-    class="edit" 
-    wx:key="{{index}}" 
-    data-index="{{index}}"  
-    src="https://fangti-mcdn.oss-cn-beijing.aliyuncs.com/appstatic/img/ft2/{{!item.isSlected?item.g:item.y}}.png">
+    <image bindtap="selectEdit" wx:for="{{btnList}}" class="edit" wx:key="{{index}}" data-index="{{index}}" src="https://fangti-mcdn.oss-cn-beijing.aliyuncs.com/appstatic/img/ft2/{{!item.isSlected?item.g:item.y}}.png">
     </image>
   </view>
 
 
-  <image bindtap="startRecord"  wx:if="{{recordState === 'no_r' }}" class="btn" src="./img/btn_record_h@2x.png"></image>
+  <image bindtap="startRecord" wx:if="{{recordState === 'no_r' }}" class="btn" src="./img/btn_record_h@2x.png"></image>
   <image bindtap="stopRecord" wx:if="{{recordState === 'ing_r'}}" class="btn" src="https://fangti-mcdn.oss-cn-beijing.aliyuncs.com/appstatic/img/ft2/btn_stop_h@2x.png"></image>
-  
-<view class="end_r" wx:if="{{recordState === 'end_r'}}" >
- <view class="cancel" bindtap="cancel">取消</view>
- <view class="save" bindtap="save">保存</view>
-</view>
+
+  <view class="end_r" wx:if="{{recordState === 'end_r'}}">
+    <view class="cancel" bindtap="cancel">取消</view>
+    <view class="save" bindtap="save">保存</view>
+  </view>
 </view>

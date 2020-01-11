@@ -1,4 +1,5 @@
 // pages/order/order-push/order-push.js
+import {ajax} from '../../api/ajax.js'
 Page({
 
   /**
@@ -51,12 +52,20 @@ Page({
     canvasWidth: 335,
     canvasHeight: 425,
     originCanvasWidth: 335,
+    correct_display:false,
+    c_name:'',
+    l_name:'',
+    nick_name:'',
+    picture:'',
+    comment_audio:'',
+    comment_content:''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
+  onLoad: async function(options) {
+    await this.getOrderDetail(options.uw_id)
     const query = wx.createSelectorQuery()
     query.select('.audio-progress').boundingClientRect()
     query.select('.btn').boundingClientRect()
@@ -80,12 +89,7 @@ Page({
           canvasHeight
         })
       })
-  },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: async function() {
     const ctx = wx.createCanvasContext('canvas', this)
 
     const audio = wx.createInnerAudioContext()
@@ -145,12 +149,19 @@ Page({
     this.setData({
       ePath,
       ctx
-    }, async() => {
+    }, async () => {
       await this.backImgInfo()
       await this.drawBack();
       ctx.draw()
       wx.hideLoading()
     })
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: async function() {
+  
   },
 
   /**
@@ -258,9 +269,10 @@ Page({
     const src =
       "https://fangtiyuwen.oss-cn-beijing.aliyuncs.com/admin_files/2ff0721f89347ce62da9a2a3b4493ddc.mp3";
     const {
-      audio
+      audio,
+      comment_audio
     } = this.data;
-    audio.src = src
+    audio.src = comment_audio
 
     audio.play()
 
@@ -282,7 +294,7 @@ Page({
   /////////////// canvas
   async downImgs(urls) {
     return urls.map(async(item, key) => {
-      return await this.downloadFile('https://fangti-mcdn.oss-cn-beijing.aliyuncs.com/appstatic/img/ft2/' + item)
+      return await this.downloadFile(item.includes('https') ? item : ('https://fangti-mcdn.oss-cn-beijing.aliyuncs.com/appstatic/img/ft2/' + item))
     })
   },
 
@@ -384,10 +396,9 @@ Page({
 
 
   drawHistory(curTime) {
-    // const {
-    //   done
-    // } = this.data
-    const done = wx.getStorageSync('done')
+    const {
+      done
+    } = this.data
     done.forEach(({
       x,
       y,
@@ -404,4 +415,31 @@ Page({
     this.drawEditor(x, y, btnIndex)
     this.drawHistory()
   },
+
+  async getOrderDetail(id) {
+    const token = wx.getStorageSync('token');
+    const res = await ajax({
+      url: '/my/order/detail',
+      method: "GET",
+      data: {
+        uw_id: id,
+        token
+      }
+    })
+    console.log(res)
+    if (res.code === 1) {
+      const {
+        picture,
+        correct_display,
+        comment_content
+      } = res.data
+      this.setData({
+        bg: picture,
+        correct_display,
+        done: JSON.parse(comment_content),
+        ...res.data
+      })
+    }
+  },
+
 })

@@ -78,9 +78,9 @@ Page({
 
   navigate(e) {
     const {
-      state
+      state,id
     } = e.currentTarget.dataset
-    const url = state === 1 ? '/pages/comments/comments' : '/pages/order-push/order-push'
+    const url = state === 0 ? ('/pages/comments/comments?id='+id) : ('/pages/order-push/order-push?uw_id='+id);
     wx.navigateTo({
       url,
     })

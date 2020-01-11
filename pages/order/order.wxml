@@ -1,7 +1,7 @@
 <!--pages/order/order.wxml-->
 <view class='order'>
   <view class="ul">
-    <view class="li" wx:for="{{list}}" wx:key="index" bindtap="navigate" data-state="{{item.state}}">
+    <view class="li" wx:for="{{list}}" wx:key="index" bindtap="navigate" data-id="{{item.id}}" data-state="{{item.comment_status}}">
       <view class="li-header">
         <image class="avatar" src="{{item.avatar}}"></image>
         <text class="name">{{item.nick_name}}</text>
