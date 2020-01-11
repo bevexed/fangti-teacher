@@ -17,10 +17,11 @@
 
       <view class="footer">
         <view class="sub">{{item.l_name}}</view>
-        <view class="btn">接单</view>
+        <view class="btn" data-uw_id="{{item.id}}" bindtap="takingOrder">接单</view>
 
       </view>
 
     </view>
   </view>
 </view>
+<view style="height:100rpx"></view>

@@ -39,7 +39,11 @@ Page({
         selected: 0
       })
     }
-    await this.getOrderList()
+    this.setData({
+      page:1,
+      orderList:[]
+    }, async () => await this.getOrderList() )
+   
   },
 
   /**
@@ -67,7 +71,11 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function() {
-
+    const {page} = this.data;
+    const _page = page + 1;
+    this.setData({
+      page: _page
+    }, async() =>await this.getOrderList())
   },
 
   /**
@@ -81,7 +89,8 @@ Page({
   async getOrderList() {
     const {
       page,
-      page_size
+      page_size,
+      orderList
     } = this.data
     const token = wx.getStorageSync('token')
     const res = await ajax({
@@ -97,7 +106,30 @@ Page({
 
     if (res.code === 1) {
       this.setData({
-        orderList: res.data.list
+        orderList: [...orderList,...res.data.list]
+      })
+    }
+  },
+
+  async takingOrder(e){
+    const { uw_id} = e.currentTarget.dataset
+    const token = wx.getStorageSync('token')
+    const res = await ajax({
+      url: '/home/order/taking',
+      method: 'POST',
+      data: {
+        token,
+        uw_id
+      }
+    })
+    if (res.code === 0){
+      wx.showToast({
+        icon:"none",
+        title: res.message,
+      })
+    }else{
+      wx.showToast({
+        title: res.message,
       })
     }
   }

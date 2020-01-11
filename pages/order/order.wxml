@@ -3,25 +3,25 @@
   <view class="ul">
     <view class="li" wx:for="{{list}}" wx:key="index" bindtap="navigate" data-state="{{item.state}}">
       <view class="li-header">
-        <image class="avatar"               src="https://i0.hdslb.com/bfs/archive/b3b6c20f9f7c729a4c527bcb5e04ecb154df61e6.jpg@412w_232h_1c_100q.jpg"></image>
-        <text class="name">123</text>
-        <text class='wait'>{{item.state === 1 ? '待点评':'已点评'}}</text>
+        <image class="avatar" src="{{item.avatar}}"></image>
+        <text class="name">{{item.nick_name}}</text>
+        <text class='wait'>{{item.comment_status === 0 ? '待点评':'已点评'}}</text>
       </view>
 
       <view class="body">
         <view class="title">
-          唐诗300
+          {{item.c_name}}
         </view>
-        <view class="price">价格：￥20</view>
+        <view class="price">价格：￥{{item.l_price}}</view>
       </view>
 
       <view class="footer">
-        <view class="sub">《长恨歌》</view>
-        <view class="btn {{item.state === 1 ? 'qdp':'xq'}}">{{item.state === 1 ? '去点评':'详情'}}</view>
+        <view class="sub">{{item.l_name}}</view>
+        <view class="btn {{item.comment_status === 0 ? 'qdp':'xq'}}">{{item.comment_status === 0 ? '去点评':'详情'}}</view>
 
       </view>
 
     </view>
-    
+
   </view>
 </view>

@@ -1,15 +1,16 @@
 // pages/order/order.js
+
+import {ajax} from '../../api/ajax.js'
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    list: [{
-      state: 1
-    }, {
-      state: 0
-    }]
+    list: [],
+    page_size:10,
+    page:1
   },
 
   /**
@@ -30,7 +31,10 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    this.setData({
+      page: 1,
+      orderList: []
+    }, async () => await this.getOrderList())
   },
 
   /**
@@ -58,7 +62,11 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function() {
-
+    const { page } = this.data;
+    const _page = page + 1;
+    this.setData({
+      page: _page
+    }, async () => await this.getOrderList())
   },
 
   /**
@@ -76,5 +84,28 @@ Page({
     wx.navigateTo({
       url,
     })
+  },
+
+  async getOrderList(){
+    const {
+      page,
+      page_size,
+      list
+    } = this.data
+    const token = wx.getStorageSync('token')
+    const res = await ajax({
+      url: '/my/order/list',
+      method:"GET",
+      data:{
+        page,
+        token,
+        page_size
+      }
+    })
+    if(res.code ===1){
+      this.setData({
+        list:[...list,...res.data.list]
+      })
+    }
   }
 })
