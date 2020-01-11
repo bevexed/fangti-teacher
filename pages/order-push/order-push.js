@@ -52,13 +52,15 @@ Page({
     canvasWidth: 335,
     canvasHeight: 425,
     originCanvasWidth: 335,
-    correct_display:false,
+    correct_display:'',
+    show_correct_display:false,
     c_name:'',
     l_name:'',
     nick_name:'',
     picture:'',
     comment_audio:'',
-    comment_content:''
+    comment_content:'',
+    done:[]
   },
 
   /**
@@ -175,14 +177,14 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function() {
-
+     this.Pause()
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function() {
-
+    this.data.audio.destroy()
   },
 
   /**
@@ -407,13 +409,16 @@ Page({
     }) => {
       if (time >= curTime) return
       this.drawEditor(x, y, btnIndex)
+      if (btnIndex === 4){
+        this.setData({show_correct_display:true})
+      }
     })
   },
 
   drawSteps(x, y, btnIndex) {
-    this.drawBack()
+    // this.drawBack()
     this.drawEditor(x, y, btnIndex)
-    this.drawHistory()
+    // this.drawHistory()
   },
 
   async getOrderDetail(id) {
@@ -433,6 +438,7 @@ Page({
         correct_display,
         comment_content
       } = res.data
+      console.log(JSON.parse(comment_content))
       this.setData({
         bg: picture,
         correct_display,

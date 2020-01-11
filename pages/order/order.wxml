@@ -5,7 +5,7 @@
       <view class="li-header">
         <image class="avatar" src="{{item.avatar}}"></image>
         <text class="name">{{item.nick_name}}</text>
-        <text class='wait'>{{item.comment_status === 0 ? '待点评':'已点评'}}</text>
+        <text class='wait'>{{item.comment_status === 1 ? '待点评':'已点评'}}</text>
       </view>
 
       <view class="body">
@@ -17,7 +17,7 @@
 
       <view class="footer">
         <view class="sub">{{item.l_name}}</view>
-        <view class="btn {{item.comment_status === 0 ? 'qdp':'xq'}}">{{item.comment_status === 0 ? '去点评':'详情'}}</view>
+        <view class="btn {{item.comment_status === 1 ? 'qdp':'xq'}}">{{item.comment_status === 1 ? '去点评':'详情'}}</view>
 
       </view>
 

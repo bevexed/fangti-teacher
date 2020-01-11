@@ -18,7 +18,7 @@
   </view>
 
   <canvas canvas-id="canvas" class="canvas" style="width: 670rpx; height: 850rpx;"></canvas>
-<image src="{{correct_display}}" wx:if="{{show_correct_display}}" class="small-pic"></image>
+  <image src="{{correct_display}}" wx:if="{{show_correct_display}}" class="small-pic"></image>
 
   <view class="audio">
     <image wx:if="{{!pause}}" bindtap="Pause" class="audio-img" src="./img/btn_stop_h@2x.png"></image>

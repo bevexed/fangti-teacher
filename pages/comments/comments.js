@@ -18,7 +18,7 @@ Page({
     btnIndex: '',
     ctx: {},
     bg: 'pic_read@2x.png',
-    time: 0,
+    time: -2,  // 给一个准备时间
     // no_r 没录音 
     // ing_r 正在录音
     recordState: 'no_r',
@@ -153,7 +153,6 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function() {
-    this.data.audio.destroy()
   },
 
   /**
@@ -342,7 +341,7 @@ Page({
       })
     }
     open()
-    const timer = setInterval(open, 200)
+    const timer = setInterval(open, 1000)
     record.start()
     this.setData({
       timer
@@ -493,7 +492,7 @@ Page({
     })
     await this.AjaxSave(audio)
     wx.hideLoading()
-    wx.navigateTo({
+    wx.redirectTo({
       url: '/pages/order-push/order-push?uw_id=' + uw_id,
     })
   },

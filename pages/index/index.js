@@ -133,6 +133,10 @@ Page({
         title: res.message,
         mask: true
       })
+      this.setData({
+        page: 1,
+        orderList: []
+      }, async () => await this.getOrderList())
     }
   }
 })
