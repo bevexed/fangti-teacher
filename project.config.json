@@ -131,6 +131,13 @@
 					"pathName": "pages/order-preview/order-preview",
 					"query": "id=32",
 					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "修改密码",
+					"pathName": "pages/password/change-password",
+					"query": "",
+					"scene": null
 				}
 			]
 		}

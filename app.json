@@ -10,7 +10,8 @@
     "pages/order/order",
     "pages/order-push/order-push",
     "pages/comments/comments",
-    "pages/order-preview/order-preview"
+    "pages/order-preview/order-preview",
+    "pages/password/change-password"
   ],
   "window": {
     "backgroundTextStyle": "light",

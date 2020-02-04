@@ -51,6 +51,7 @@
   background: rgba(255, 255, 255, 1);
   box-shadow: 0px 4px 36px 0px rgba(122, 137, 130, 0.14);
   border-radius: 32rpx 32rpx 0px 32rpx;
+  margin-bottom: 40rpx
 }
 
 .li-header {
