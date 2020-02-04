@@ -1,7 +1,7 @@
 <!--pages/index/index.wxml-->
 <view class='index'>
   <view class="ul">
-    <view class="li" wx:for="{{orderList}}" wx:key="index">
+    <view class="li" wx:for="{{orderList}}" wx:key="index" bindtap="navigate" data-id="{{item.id}}" data-state="{{item.comment_status}}">
       <view class="li-header">
         <image class="avatar" src="{{item.avatar}}"></image>
         <text class="name">{{item.nick_name}}</text>
@@ -17,7 +17,7 @@
 
       <view class="footer">
         <view class="sub">{{item.l_name}}</view>
-        <view class="btn" data-uw_id="{{item.id}}" bindtap="takingOrder">接单</view>
+        <view class="btn" data-uw_id="{{item.id}}" catchtap="takingOrder">接单</view>
 
       </view>
 

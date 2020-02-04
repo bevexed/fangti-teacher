@@ -105,16 +105,31 @@
 					"scene": null
 				},
 				{
-					"id": -1,
+					"id": 7,
 					"name": "订单点评",
 					"pathName": "pages/comments/comments",
+					"query": "id=1",
+					"scene": null
+				},
+				{
+					"id": 8,
+					"name": "已提交且点评",
+					"pathName": "pages/order-push/order-push",
+					"query": "uw_id=2",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "订单",
+					"pathName": "pages/order/order",
 					"query": "",
 					"scene": null
 				},
 				{
 					"id": -1,
-					"name": "已提交且点评",
-					"pathName": "pages/order-push/order-push",
+					"name": "未批改",
+					"pathName": "pages/order-preview/order-preview",
+					"query": "id=32",
 					"scene": null
 				}
 			]

@@ -111,6 +111,15 @@ Page({
     }
   },
 
+  navigate(e) {
+    const {
+      state, id
+    } = e.currentTarget.dataset
+    wx.navigateTo({
+      url: "/pages/order-preview/order-preview?id="+id,
+    })
+  },
+
   async takingOrder(e){
     const { uw_id} = e.currentTarget.dataset
     const token = wx.getStorageSync('token')

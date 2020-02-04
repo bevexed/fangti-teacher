@@ -1,0 +1,25 @@
+<!--pages/order-preview/order-preview.wxml-->
+<view class="order-preview">
+  <view class="order-header">
+
+ <view class="order-right">
+      <image class="order-avater" src="{{avatar}}"></image>
+    </view>
+
+    <view class="order-left">
+      <view class="order-title">
+        {{c_name}} 
+        <text class="submit-time">{{submit_time}}</text>
+      </view>
+      <view class="order-sub">
+        {{l_name}}
+      </view>
+    </view>
+
+   
+
+  </view>
+
+  <image class="pic" src="{{picture}}"></image>
+
+</view>

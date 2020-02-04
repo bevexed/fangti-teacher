@@ -42,7 +42,7 @@ Page({
     }, {
       y: 'btn_example_s@2x',
       g: 'btn_example_n@2x',
-      e: 'ico_tick_h@2x.png',
+      e: '',
       isSlected: false,
       name: 'expm'
     }],
@@ -416,9 +416,9 @@ Page({
   },
 
   drawSteps(x, y, btnIndex) {
-    // this.drawBack()
+    this.drawBack()
     this.drawEditor(x, y, btnIndex)
-    // this.drawHistory()
+    this.drawHistory()
   },
 
   async getOrderDetail(id) {

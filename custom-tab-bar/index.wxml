@@ -1,7 +1,7 @@
 <!--custom-tab-bar/index.wxml-->
 <view class="custom-tab-bar fixed-pay">
-  <view class="item {{selected === index ?'active':''}}" wx:for="{{list}}" wx:key="{{index}}" data-path="{{item.pagePath}}" data-index="{{index}}" bindtap="switchTab">
-   <image class="{{selected === index ? 'selected':''}}" src="{{selected === index ? item.selectedIconPath : item.iconPath}}"></image>
+  <view class="item {{selected === index ?'active':''}}" wx:key="index" wx:for="{{list}}"  data-path="{{item.pagePath}}" data-index="{{index}}" bindtap="switchTab">
+    <image class="{{selected === index ? 'selected':''}}" src="{{selected === index ? item.selectedIconPath : item.iconPath}}"></image>
     <view style="color: {{selected === index ? selectedColor : color}}">{{item.text}}</view>
   </view>
 </view>
