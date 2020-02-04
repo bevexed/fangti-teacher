@@ -10,7 +10,15 @@ Page({
   data: {
     list: [],
     page_size:10,
-    page:1
+    type:1,
+    page:1,
+    tabBar:[{
+      state:'未批改',
+      type:1
+    },{
+      state:'已批改',
+      type:2
+    }]
   },
 
   /**
@@ -33,7 +41,8 @@ Page({
   onShow: function() {
     this.setData({
       page: 1,
-      list: []
+      list: [],
+      type:1
     }, async () => await this.getOrderList())
   },
 
@@ -90,7 +99,8 @@ Page({
     const {
       page,
       page_size,
-      list
+      list,
+      type
     } = this.data
     const token = wx.getStorageSync('token')
     const res = await ajax({
@@ -99,7 +109,8 @@ Page({
       data:{
         page,
         token,
-        page_size
+        page_size,
+        type
       }
     })
     if(res.code ===1){
@@ -107,5 +118,15 @@ Page({
         list:[...list,...res.data.list]
       })
     }
+  },
+
+  changeBar(e){
+    const {type} = e.currentTarget.dataset
+    this.setData({type})
+    this.setData({
+      page: 1,
+      list: [],
+      type
+    }, async () => await this.getOrderList())
   }
 })

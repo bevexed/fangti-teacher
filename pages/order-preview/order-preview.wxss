@@ -3,6 +3,7 @@
 /* pages/order/order-push/order-push.wxss */
 
 .order-preview {
+  max-width: 750rpx;
   padding: 40rpx;
   text-align: center;
   overflow: hidden

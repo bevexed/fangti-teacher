@@ -4,6 +4,40 @@
   padding: 36rpx 40rpx;
 }
 
+.tab-bar {
+  display: flex;
+  align-items: center;
+  height: 200rpx;
+  background: #00e0b4;
+}
+
+.tab-bar .wrap {
+  width: 600rpx;
+  display: flex;
+  justify-content: space-around;
+  height: 80rpx;
+  line-height: 80rpx;
+  border-radius: 40rpx;
+  margin: 0 80rpx;
+  border: 2rpx solid rgba(255, 255, 255, 1);
+  overflow: hidden
+ 
+}
+
+.tab-bar .wrap view{
+  width: 50%;
+  font-size: 32rpx;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 1);
+  text-align: center
+}
+
+.tab-bar .wrap .active {
+  background: rgba(255, 255, 255, 1);
+  color:rgba(0,189,129,1);
+}
+
 .li {
   padding: 28rpx;
   box-sizing: border-box;
@@ -87,9 +121,9 @@
 }
 
 .btn.xq {
-   line-height: 48rpx;
+  line-height: 48rpx;
   background: white;
   color: #ffc018;
   border: 4rpx solid #ffc018;
-  box-sizing: border-box
+  box-sizing: border-box;
 }

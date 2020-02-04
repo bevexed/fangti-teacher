@@ -1,4 +1,12 @@
 <!--pages/order/order.wxml-->
+<view class="tab-bar">
+  <view class="wrap">
+    <view wx:key="index" wx:for='{{tabBar}}' class="{{type===item.type?'active':''}}" bindtap="changeBar" data-type="{{item.type}}">
+ {{item.state}}
+    </view>
+  </view>
+</view>
+
 <view class='order'>
   <view class="ul">
     <view class="li" wx:for="{{list}}" wx:key="index" bindtap="navigate" data-id="{{item.id}}" data-state="{{item.comment_status}}">
