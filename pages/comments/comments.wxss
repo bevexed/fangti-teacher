@@ -59,6 +59,8 @@
 }
 
 .small-pic {
+  position: relative;
+  z-index: 999;
   display: block;
   margin-top: -150rpx;
   margin-left: 68vw;

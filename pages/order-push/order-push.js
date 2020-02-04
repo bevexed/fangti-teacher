@@ -100,6 +100,7 @@ Page({
     })
     audio.onPlay(e => {
       console.log('开始播放')
+      this.drawBack()
     })
     audio.onTimeUpdate(e => {
       const {

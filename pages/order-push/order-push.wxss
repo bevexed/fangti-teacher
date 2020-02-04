@@ -84,7 +84,6 @@ canvas {
 }
 
 .btn {
-  transform: all 0.3s ease;
   width: 24rpx;
   height: 24rpx;
   background: rgba(255, 255, 255, 1);

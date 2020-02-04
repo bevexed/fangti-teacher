@@ -1,18 +1,21 @@
 // pages/certification/certification.js
+
+import {ajax} from '../../api/ajax.js'
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+info:{}
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.getUserInfo()
   },
 
   /**
@@ -62,5 +65,21 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+
+  async getUserInfo() {
+    const token = wx.getStorageSync('token');
+    const res = await ajax({
+      url: '/mentor',
+      method: 'GET',
+      data: {
+        token
+      }
+    })
+    if (res.code === 1) {
+      this.setData({
+        info: res.data
+      })
+    }
   }
 })
