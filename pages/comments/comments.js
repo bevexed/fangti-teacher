@@ -254,15 +254,14 @@ Page({
   async drawEditor(x, y, btnIndex) {
     let {
       ePath,
-      startX,
-      startY,
-      endX,
-      endY,
       ctx,
       editSize,
       canvasWidth,
       originCanvasWidth
     } = this.data
+
+    if(btnIndex === 4){return}
+
     const img = await ePath[btnIndex]
 
 
@@ -303,7 +302,9 @@ Page({
     } = e.currentTarget.dataset;
     const {
       btnList,
-      btnIndex
+      btnIndex,
+      done,
+      time
     } = this.data
     const _btnList = btnList.map(({
       isSlected,
@@ -325,8 +326,9 @@ Page({
     })
     if (index === 4) {
       this.setData({
-        show_correct_display: true
-      })
+        show_correct_display: true,
+        done:[...done,{x:0,y:0,time,btnIndex:index}]
+      },)
     }
   },
 
@@ -351,7 +353,8 @@ Page({
     const {
       btnList,
       timer,
-      record
+      record,
+      done
     } = this.data
 
     record.stop()
@@ -440,6 +443,8 @@ Page({
       done,
     } = this.data
 
+    console.log(done)
+
     if (typeof btnIndex !== 'number') return
     done.push({
       x,
@@ -466,7 +471,8 @@ Page({
       y: '',
       btnIndex: '',
       timer: '',
-      recordState: 'no_r'
+      recordState: 'no_r',
+      show_correct_display:false
     }, async() => {
       await this.drawBack()
       ctx.draw()
@@ -479,7 +485,21 @@ Page({
       tempFilePath,
       uw_id
     } = this.data
+
+    const btnIndexs = done.map(item=>item.btnIndex)
+    
+    const _btnIndexs = [...new Set(btnIndexs)].sort()
+
+    if(_btnIndexs.join(',') !== [0,1,2,3,4].join(',')){
+       return wx.showToast({
+         mask:true,
+         icon: 'none',
+         title: '提交失败，需要使用每一个批改符号。',
+       })
+    }
+
     wx.setStorageSync('done', done)
+
     wx.setStorageSync('tempFilePath', tempFilePath)
     wx.showLoading({
       title: '音频上传中',
@@ -490,6 +510,7 @@ Page({
     wx.showLoading({
       title: '数据操作记录上传中',
     })
+
     await this.AjaxSave(audio)
     wx.hideLoading()
     wx.redirectTo({
