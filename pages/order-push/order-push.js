@@ -103,7 +103,7 @@ Page({
       this.drawBack()
     })
     audio.onTimeUpdate(e => {
-      const {
+      let {
         currentTime,
         duration,
       } = audio;
@@ -112,13 +112,14 @@ Page({
       } = this.data;
       const marginLeft = currentTime / duration * Max
       const time = Math.floor(currentTime)
-      this.drawBack()
-      this.drawHistory(time)
-      ctx.draw()
+      console.log(currentTime,duration,marginLeft)
       this.setData({
         marginLeft,
         time
       })
+      this.drawBack()
+      this.drawHistory(time)
+      ctx.draw()
     })
 
     audio.onEnded(e => {
@@ -280,7 +281,8 @@ Page({
     audio.play()
 
     this.setData({
-      pause: false
+      pause: false,
+      show_correct_display:false
     })
   },
 
@@ -375,15 +377,14 @@ Page({
   async drawEditor(x, y, btnIndex) {
     let {
       ePath,
-      startX,
-      startY,
-      endX,
-      endY,
       ctx,
       editSize,
       canvasWidth,
       originCanvasWidth
     } = this.data
+
+    if(btnIndex === 4) return
+
     const img = await ePath[btnIndex]
 
     const r = canvasWidth / originCanvasWidth

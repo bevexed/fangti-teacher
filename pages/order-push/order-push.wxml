@@ -24,7 +24,7 @@
     <image wx:if="{{!pause}}" bindtap="Pause" class="audio-img" src="./img/btn_stop_h@2x.png"></image>
     <image wx:if="{{pause}}" class="audio-img" bindtap="play" src="./img/btn_play_h@2x.png"></image>
     <view class="audio-progress" style="background:linear-gradient()">
-      <view style="margin-left:{{marginLeft}}% ; transition:{{marginLeft > 4?' all .3s linear':''}};" class="btn" bindtouchstart="touchStart" bindtouchmove="touchMove" bindtouchend="touchEnd"></view>
+      <view style="margin-left:{{marginLeft}}%" class="btn" bindtouchstart="touchStart" bindtouchmove="touchMove" bindtouchend="touchEnd"></view>
     </view>
   </view>
 </view>

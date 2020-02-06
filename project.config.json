@@ -115,7 +115,7 @@
 					"id": 8,
 					"name": "已提交且点评",
 					"pathName": "pages/order-push/order-push",
-					"query": "uw_id=2",
+					"query": "uw_id=28",
 					"scene": null
 				},
 				{
@@ -143,6 +143,7 @@
 					"id": -1,
 					"name": "账号与安全",
 					"pathName": "pages/safe/safe",
+					"query": "",
 					"scene": null
 				}
 			]
