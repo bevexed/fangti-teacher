@@ -1,0 +1,16 @@
+/* pages/safe/safe.wxss */
+
+.li {
+  display: flex;
+  justify-content: space-between;
+  margin: 30rpx auto;
+  width: 640rpx;
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0px 4rpx 36rpx 0px rgba(122, 137, 130, 0.14);
+  border-radius: 24rpx;
+  font-size: 32rpx;
+  font-family: PingFangSC-Regular, PingFang SC;
+  padding: 1em;
+  font-weight: 400;
+  color: rgba(39, 60, 61, 1);
+}

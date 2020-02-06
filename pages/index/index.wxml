@@ -12,7 +12,9 @@
         <view class="title">
           {{item.c_name}}
         </view>
-        <view class="price">价格：￥20</view>
+        <view class="price">
+        <!-- ￥20 -->
+        </view>
       </view>
 
       <view class="footer">

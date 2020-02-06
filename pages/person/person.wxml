@@ -20,10 +20,9 @@
       <image class="icon" src='https://fangti-mcdn.oss-cn-beijing.aliyuncs.com/appstatic/img/ft2/ico_class_h copy 8@2x.png'></image>
       <view class="label">我的订单</view>
     </view>
-    <view class="li"  bindtap="navigate" data-url="/pages/password/change-password"
->
+    <view class="li"  bindtap="navigate" data-url="/pages/safe/safe">
       <image class="icon" src='https://fangti-mcdn.oss-cn-beijing.aliyuncs.com/appstatic/img/ft2/ico_class_h.png'></image>
-      <view class="label">密码修改</view>
+      <view class="label">账号与安全</view>
     </view>
   </view>
 </view>

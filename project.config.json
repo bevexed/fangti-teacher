@@ -138,6 +138,12 @@
 					"pathName": "pages/password/change-password",
 					"query": "",
 					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "账号与安全",
+					"pathName": "pages/safe/safe",
+					"scene": null
 				}
 			]
 		}

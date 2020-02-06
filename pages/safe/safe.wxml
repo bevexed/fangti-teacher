@@ -1,0 +1,20 @@
+<!--pages/safe/safe.wxml-->
+<view class="safe">
+
+  <view class="ul">
+    <view class="li"  bindtap="navigate" data-url="/pages/password/change-password">
+     <view>
+     修改密码
+     </view> 
+
+     <view>
+     >
+     </view>
+    </view>
+
+    <view class="li"  bindtap="connect">
+      忘记密码
+    </view>
+  </view>
+
+</view>

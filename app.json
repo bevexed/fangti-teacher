@@ -11,7 +11,8 @@
     "pages/order-push/order-push",
     "pages/comments/comments",
     "pages/order-preview/order-preview",
-    "pages/password/change-password"
+    "pages/password/change-password",
+    "pages/safe/safe"
   ],
   "window": {
     "backgroundTextStyle": "light",
