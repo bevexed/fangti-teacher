@@ -18,21 +18,21 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
+  onLoad: function (options) {
 
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
+  onReady: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: async function() {
+  onShow: async function () {
     if (typeof this.getTabBar === 'function' &&
       this.getTabBar()) {
       this.getTabBar().setData({
@@ -40,48 +40,50 @@ Page({
       })
     }
     this.setData({
-      page:1,
-      orderList:[]
-    }, async () => await this.getOrderList() )
-   
+      page: 1,
+      orderList: []
+    }, async () => await this.getOrderList())
+
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function() {
+  onHide: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function() {
+  onUnload: function () {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function() {
+  onPullDownRefresh: function () {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {
-    const {page} = this.data;
+  onReachBottom: function () {
+    const {
+      page
+    } = this.data;
     const _page = page + 1;
     this.setData({
       page: _page
-    }, async() =>await this.getOrderList())
+    }, async () => await this.getOrderList())
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
+  onShareAppMessage: function () {
 
   },
 
@@ -95,7 +97,7 @@ Page({
     const token = wx.getStorageSync('token')
     const res = await ajax({
       url: '/home/order/list',
-      method:'GET',
+      method: 'GET',
       data: {
         token,
         page_size,
@@ -106,22 +108,36 @@ Page({
 
     if (res.code === 1) {
       this.setData({
-        orderList: [...orderList,...res.data.list]
+        orderList: [...orderList, ...res.data.list]
       })
     }
   },
 
   navigate(e) {
     const {
-      state, id
+      state,
+      id
     } = e.currentTarget.dataset
     wx.navigateTo({
-      url: "/pages/order-preview/order-preview?id="+id,
+      url: "/pages/order-preview/order-preview?id=" + id,
     })
   },
 
-  async takingOrder(e){
-    const { uw_id} = e.currentTarget.dataset
+  async takingOrder(e) {
+    const {
+      uw_id,
+      index
+    } = e.currentTarget.dataset
+
+    if (index !== 0) {
+      return wx.showToast({
+        icon: "none",
+        title: '请按顺序接单',
+        mask: true,
+        duration: 3000
+      })
+    }
+
     const token = wx.getStorageSync('token')
     const res = await ajax({
       url: '/home/order/taking',
@@ -131,16 +147,19 @@ Page({
         uw_id
       }
     })
-    if (res.code === 0){
+    if (res.code === 0) {
       wx.showToast({
-        icon:"none",
+        icon: "none",
         title: res.message,
-        mask:true
+        mask: true,
+        duration: 3000
+
       })
-    }else{
+    } else {
       wx.showToast({
         title: res.message,
-        mask: true
+        mask: true,
+        duration: 3000
       })
       this.setData({
         page: 1,

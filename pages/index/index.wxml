@@ -19,7 +19,7 @@
 
       <view class="footer">
         <view class="sub">{{item.l_name}}</view>
-        <view class="btn" data-uw_id="{{item.id}}" catchtap="takingOrder">接单</view>
+        <view class="btn" data-uw_id="{{item.id}}" data-index="{{index}}" catchtap="takingOrder">接单</view>
 
       </view>
 

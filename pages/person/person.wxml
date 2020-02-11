@@ -22,7 +22,7 @@
     </view>
     <view class="li"  bindtap="navigate" data-url="/pages/safe/safe">
       <image class="icon" src='https://fangti-mcdn.oss-cn-beijing.aliyuncs.com/appstatic/img/ft2/ico_class_h.png'></image>
-      <view class="label">账号与安全</view>
+      <view class="label">设置</view>
     </view>
   </view>
 </view>
