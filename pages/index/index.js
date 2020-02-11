@@ -132,7 +132,7 @@ Page({
     if (index !== 0) {
       return wx.showToast({
         icon: "none",
-        title: '请按顺序接单',
+        title: '需要从第一单开始按顺序接单哦',
         mask: true,
         duration: 3000
       })

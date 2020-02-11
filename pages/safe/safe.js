@@ -102,5 +102,17 @@ Page({
          console.log(e)
        }
      })
+  },
+
+  loginOut(){
+    wx.clearStorage({
+      complete: (res) => {
+        wx.reLaunch({
+          url: '/pages/login/login',
+        })
+      },
+    })
   }
+
+
 })
