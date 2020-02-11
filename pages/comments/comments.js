@@ -353,9 +353,36 @@ Page({
     const {
       btnList,
       timer,
+      time,
       record,
       done
     } = this.data
+
+    const btnIndexs = done.map(item=>item.btnIndex)
+
+    if(!btnIndexs.includes(1)){
+      return wx.showToast({
+        icon:'none',
+        title: '您还没有用√发现孩子优点',
+        mask:true
+      })
+    }
+
+    if(!btnIndexs.includes(3)){
+      return wx.showToast({
+        icon:'none',
+        title: '您还没有用○功能指出问题',
+        mask:true
+      })
+    }
+
+    if(time<60){
+      return wx.showToast({
+        icon:'none',
+        title: '您的录音时长不够',
+        mask:true
+      })
+    }
 
     record.stop()
     clearInterval(timer)
@@ -483,8 +510,17 @@ Page({
     const {
       done,
       tempFilePath,
-      uw_id
+      uw_id,
+      time
     } = this.data
+
+    if(time>60*3){
+      return wx.showToast({
+        icon:'none',
+        title: '您的录音超时了',
+        mask:true
+      })
+    }
 
     const btnIndexs = done.map(item=>item.btnIndex)
     
