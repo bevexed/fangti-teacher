@@ -1,29 +1,35 @@
 <!--pages/index/index.wxml-->
 <view class='index'>
-  <view class="ul">
-    <view class="li" wx:for="{{orderList}}" wx:key="index" bindtap="navigate" data-id="{{item.id}}" data-state="{{item.comment_status}}">
-      <view class="li-header">
-        <image class="avatar" src="{{item.avatar}}"></image>
-        <text class="name">{{item.nick_name}}</text>
-        <text class='wait'>{{item.comment_status===0?'待点评':'已点评'}}</text>
-      </view>
+	<view class="ul">
+		<view class="li" wx:for="{{orderList}}" wx:key="index" bindtap="navigate" data-id="{{item.id}}" data-state="{{item.comment_status}}">
+			<view class="li-header">
+				<image class="avatar" src="{{item.avatar}}"></image>
+				<text class="name">{{item.nick_name}}</text>
+				<text class='wait'>{{item.comment_status===0?'待点评':'已点评'}}</text>
+			</view>
 
-      <view class="body">
-        <view class="title">
-          {{item.c_name}}
-        </view>
-        <view class="price">
-        <!-- ￥20 -->
-        </view>
-      </view>
+			<view class="body">
+				<view class="title">
+					{{item.c_name}}
+				</view>
+				<view class="price">
+					<!-- ￥20 -->
+				</view>
+			</view>
 
-      <view class="footer">
-        <view class="sub">{{item.l_name}}</view>
-        <view class="btn" data-uw_id="{{item.id}}" data-index="{{index}}" catchtap="takingOrder">接单</view>
+			<view class="footer">
+				<view class="sub">{{item.l_name}}</view>
+				<view class="btn" data-uw_id="{{item.id}}" data-index="{{index}}" catchtap="takingOrder">接单</view>
 
-      </view>
+			</view>
 
-    </view>
-  </view>
+		</view>
+	</view>
 </view>
+
+<view wx:if="{{orderList.length === 0}}">
+	<image class="none" src="https://fangti-mcdn.oss-cn-beijing.aliyuncs.com/appstatic/img/ft2/pic_nodata_d@2x.png"></image>
+	<view class="none_span">目前没有新订单，请耐心等待哦~</view>
+</view>
+
 <view style="height:100rpx"></view>

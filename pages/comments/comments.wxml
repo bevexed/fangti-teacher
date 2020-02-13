@@ -6,8 +6,8 @@
 
   </canvas>
 
+<cover-image src="{{correct_display}}" wx:if="{{show_correct_display}}" class="small-pic"></cover-image>
 
-<image src="{{correct_display}}" wx:if="{{show_correct_display}}" class="small-pic"></image>
   <view class="img-list" wx:if="{{recordState === 'no_r'}}">
     <image wx:for="{{grayList}}" class="edit" wx:key="index" src="https://fangti-mcdn.oss-cn-beijing.aliyuncs.com/appstatic/img/ft2/{{item}}.png">
     </image>

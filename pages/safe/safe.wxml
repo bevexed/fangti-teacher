@@ -18,7 +18,7 @@
 
 
     <view class="login-out" bindtap="loginOut"> 
-      退出
+      退出登录
     </view>
   </view>
 

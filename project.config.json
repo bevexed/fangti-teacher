@@ -108,7 +108,7 @@
 					"id": 7,
 					"name": "订单点评",
 					"pathName": "pages/comments/comments",
-					"query": "id=28",
+					"query": "id=18",
 					"scene": null
 				},
 				{

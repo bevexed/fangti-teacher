@@ -360,7 +360,7 @@ Page({
 
     const btnIndexs = done.map(item=>item.btnIndex)
 
-    if(!btnIndexs.includes(1)){
+    if(!btnIndexs.includes(0)){
       return wx.showToast({
         icon:'none',
         title: '您还没有用√发现孩子优点',
@@ -368,7 +368,7 @@ Page({
       })
     }
 
-    if(!btnIndexs.includes(3)){
+    if(!btnIndexs.includes(2)){
       return wx.showToast({
         icon:'none',
         title: '您还没有用○功能指出问题',
@@ -376,7 +376,7 @@ Page({
       })
     }
 
-    if(time<60){
+    if(time<6){
       return wx.showToast({
         icon:'none',
         title: '您的录音时长不够',
@@ -547,7 +547,14 @@ Page({
       title: '数据操作记录上传中',
     })
 
-    await this.AjaxSave(audio)
+    const res = await this.AjaxSave(audio)
+    if(res.code !== 1){
+       return wx.showToast({
+         mask:true,
+         icon:'none',
+          title: res.message,
+        })
+    }
     wx.hideLoading()
     wx.redirectTo({
       url: '/pages/order-push/order-push?uw_id=' + uw_id,
@@ -614,5 +621,6 @@ Page({
         audio
       }
     })
+    return res
   }
 })

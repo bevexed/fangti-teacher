@@ -81,5 +81,17 @@ info:{}
         info: res.data
       })
     }
+  },
+
+
+  call(e){
+    console.log(e)
+    const {phoneNumber} = e.currentTarget.dataset
+    wx.makePhoneCall({
+      phoneNumber:phoneNumber+'',
+      complete: (res) => {},
+      fail: (res) => {console.log(res)},
+      success: (res) => {},
+    })
   }
 })
