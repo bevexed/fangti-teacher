@@ -344,7 +344,9 @@ Page({
     }
     open()
     const timer = setInterval(open, 1000)
-    record.start()
+    record.start({
+      format:'mp3'
+    })
     this.setData({
       timer
     })
