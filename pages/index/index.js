@@ -12,7 +12,8 @@ Page({
   data: {
     page: 1,
     page_size: 10,
-    orderList: []
+    orderList: [],
+    finish:false
   },
 
   /**
@@ -41,7 +42,8 @@ Page({
     }
     this.setData({
       page: 1,
-      orderList: []
+      orderList: [],
+      finish:false,
     }, async () => await this.getOrderList())
 
   },
@@ -94,6 +96,7 @@ Page({
       page_size,
       orderList
     } = this.data
+    wx.showLoading({title:"加载中..."})
     const token = wx.getStorageSync('token')
     const res = await ajax({
       url: '/home/order/list',
@@ -105,9 +108,11 @@ Page({
       }
     })
 
+    wx.hideLoading()
 
     if (res.code === 1) {
       this.setData({
+        finish:true,
         orderList: [...orderList, ...res.data.list]
       })
     }

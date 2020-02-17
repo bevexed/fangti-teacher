@@ -27,7 +27,7 @@
 	</view>
 </view>
 
-<view wx:if="{{orderList.length === 0}}">
+<view wx:if="{{orderList.length === 0 && finish}}">
 	<image class="none" src="https://fangti-mcdn.oss-cn-beijing.aliyuncs.com/appstatic/img/ft2/pic_nodata_d@2x.png"></image>
 	<view class="none_span">目前没有新订单，请耐心等待哦~</view>
 </view>
