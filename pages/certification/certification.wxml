@@ -1,29 +1,29 @@
 <!--pages/certification/certification.wxml-->
 <view class="cer">
-  <image class="header-img" src="https://fangti-mcdn.oss-cn-beijing.aliyuncs.com/appstatic/img/ft2/pic_attestation@2x.png">
-  </image>
+	<image class="header-img" src="https://fangti-mcdn.oss-cn-beijing.aliyuncs.com/appstatic/img/ft2/pic_attestation@2x.png">
+	</image>
 
-  <view class="wrap">
-    <image class="cer-img" src="{{info.certificate}}"></image>
-  </view>
+	<view class="wrap">
+		<image class="cer-img" src="{{info.certificate}}"></image>
+	</view>
 
 
-  <view class="list">
-    <view class="item">
-      <view class="label">姓名：</view>
-      <view class="value">{{info.name}}</view>
-    </view>
-    <view class="item">
-      <view class="label">电话：</view>
-      <view class="value">{{info.phone}}</view>
-    </view>
-    <view class="item">
-      <view class="label">职称：</view>
-      <view class="value">{{info.positional_title}}</view>
-    </view>
-  </view>
+	<view class="list">
+		<view class="item">
+			<view class="label">姓名：</view>
+			<view class="value">{{info.name}}</view>
+		</view>
+		<view class="item">
+			<view class="label">电话：</view>
+			<view class="value">{{info.phone}}</view>
+		</view>
+		<view class="item" wx:if="{{ info.positional_title }}">
+			<view class="label">职称：</view>
+			<view class="value">{{info.positional_title}}</view>
+		</view>
+	</view>
 </view>
 
 <view class="customer_service_phone" bindtap="call" data-phone-number="{{info.customer_service_phone}}">
-  <text style="color:red">*</text> 有疑问请拨打{{info.customer_service_phone}}
+	<text style="color:red">*</text> 有疑问请拨打{{info.customer_service_phone}}
 </view>

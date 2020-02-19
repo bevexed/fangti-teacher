@@ -25,11 +25,11 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    this.setData({
-      page: 1,
-      list: [],
-      type:1
-    }, async () => await this.getOrderList())
+    // this.setData({
+    //   page: 1,
+    //   list: [],
+    //   type:1
+    // }, async () => await this.getOrderList())
   },
 
   /**
@@ -43,7 +43,12 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-   
+    const {type} = this.data
+    this.setData({
+      page: 1,
+      list: [],
+      type
+    }, async () => await this.getOrderList())
   },
 
   /**
