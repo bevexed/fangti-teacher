@@ -1,14 +1,17 @@
 //app.js
 App({
-  onLaunch: function() {
-    // 展示本地存储能力
+  onShow(){
     const token = wx.getStorageSync('token')
     console.log(token)
     if (!token) {
-      wx.navigateTo({
+      wx.reLaunch({
         url: '/pages/login/login',
       })
     } 
+  },
+  onLaunch: function() {
+    // 展示本地存储能力
+    
     // 登录
     // wx.login({
     //   success: res => {
