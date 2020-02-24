@@ -10,8 +10,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    name: 'lzx',
-    password: 'lzx123456'
+    name: '',
+    password: ''
   },
 
   /**

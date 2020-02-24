@@ -13,7 +13,7 @@
       <label>
         密码
       </label>
-      <input placeholder="请输入密码" placeholder-class="input"  data-label="password" value="{{password}}" bindinput="input"></input>
+      <input placeholder="请输入密码" type="password" placeholder-class="input"  data-label="password" value="{{password}}" bindinput="input"></input>
     </view>
   </view>
 

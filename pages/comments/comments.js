@@ -18,7 +18,7 @@ Page({
     btnIndex: '',
     ctx: {},
     bg: 'pic_read@2x.png',
-    time: -2,  // 给一个准备时间
+    time: -2, // 给一个准备时间
     // no_r 没录音 
     // ing_r 正在录音
     recordState: 'no_r',
@@ -70,7 +70,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: async function(options) {
+  onLoad: async function (options) {
     await this.getOrderDetail(options.id)
 
     const record = wx.getRecorderManager()
@@ -119,7 +119,7 @@ Page({
     let ePath = await this.downImgs(eList)
     this.setData({
       ePath
-    }, async() => {
+    }, async () => {
       await this.backImgInfo()
       await this.drawBack();
       ctx.draw()
@@ -131,52 +131,51 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: async function() {
+  onReady: async function () {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
+  onShow: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function() {
+  onHide: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function() {
-  },
+  onUnload: function () {},
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function() {
+  onPullDownRefresh: function () {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {
+  onReachBottom: function () {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
+  onShareAppMessage: function () {
 
   },
   async downImgs(urls) {
-    return urls.map(async(item, key) => {
+    return urls.map(async (item, key) => {
       return await this.downloadFile(item.includes('https') ? item : ('https://fangti-mcdn.oss-cn-beijing.aliyuncs.com/appstatic/img/ft2/' + item))
     })
   },
@@ -185,9 +184,23 @@ Page({
     return new Promise((resolve, reject) => {
       wx.downloadFile({
         url,
-        success: function(res) {
-          resolve(res.tempFilePath)
-        },
+        success: function (res) {
+          switch (res.statusCode) {
+            case 200:
+              resolve(res.tempFilePath)
+              break;
+            case 404:
+              wx.hideLoading({
+                complete: (res) => {
+                  wx.showToast({
+                    title: '图片加载失败',
+                    icon:'none'
+                  })
+                },
+              })
+              reject(res)
+          }
+        }
       })
     })
 
@@ -210,7 +223,7 @@ Page({
   },
 
   backImgInfo() {
-    return new Promise(async(resolve) => {
+    return new Promise(async (resolve) => {
       const {
         canvasWidth,
         canvasHeight,
@@ -218,7 +231,7 @@ Page({
       } = this.data;
       wx.getImageInfo({
         src: await ePath[5],
-        success: async(e) => {
+        success: async (e) => {
           const {
             width,
             height
@@ -260,7 +273,9 @@ Page({
       originCanvasWidth
     } = this.data
 
-    if(btnIndex === 4){return}
+    if (btnIndex === 4) {
+      return
+    }
 
     const img = await ePath[btnIndex]
 
@@ -327,8 +342,13 @@ Page({
     if (index === 4) {
       this.setData({
         show_correct_display: true,
-        done:[...done,{x:0,y:0,time,btnIndex:index}]
-      },)
+        done: [...done, {
+          x: 0,
+          y: 0,
+          time,
+          btnIndex: index
+        }]
+      }, )
     }
   },
 
@@ -345,7 +365,7 @@ Page({
     open()
     const timer = setInterval(open, 1000)
     record.start({
-      format:'mp3'
+      format: 'mp3'
     })
     this.setData({
       timer
@@ -360,29 +380,29 @@ Page({
       done
     } = this.data
 
-    const btnIndexs = done.map(item=>item.btnIndex)
+    const btnIndexs = done.map(item => item.btnIndex)
 
-    if(!btnIndexs.includes(0)){
+    if (!btnIndexs.includes(0)) {
       return wx.showToast({
-        icon:'none',
+        icon: 'none',
         title: '您还没有用√发现孩子优点',
-        mask:true
+        mask: true
       })
     }
 
-    if(!btnIndexs.includes(2)){
+    if (!btnIndexs.includes(2)) {
       return wx.showToast({
-        icon:'none',
+        icon: 'none',
         title: '您还没有用○功能指出问题',
-        mask:true
+        mask: true
       })
     }
 
-    if(time<6){
+    if (time < 6) {
       return wx.showToast({
-        icon:'none',
+        icon: 'none',
         title: '您的录音时长不够',
-        mask:true
+        mask: true
       })
     }
 
@@ -501,8 +521,8 @@ Page({
       btnIndex: '',
       timer: '',
       recordState: 'no_r',
-      show_correct_display:false
-    }, async() => {
+      show_correct_display: false
+    }, async () => {
       await this.drawBack()
       ctx.draw()
     })
@@ -516,24 +536,24 @@ Page({
       time
     } = this.data
 
-    if(time>60*3){
+    if (time > 60 * 3) {
       return wx.showToast({
-        icon:'none',
+        icon: 'none',
         title: '您的录音超时了',
-        mask:true
+        mask: true
       })
     }
 
-    const btnIndexs = done.map(item=>item.btnIndex)
-    
+    const btnIndexs = done.map(item => item.btnIndex)
+
     const _btnIndexs = [...new Set(btnIndexs)].sort()
 
-    if(_btnIndexs.join(',') !== [0,1,2,3,4].join(',')){
-       return wx.showToast({
-         mask:true,
-         icon: 'none',
-         title: '提交失败，需要使用每一个批改符号。',
-       })
+    if (_btnIndexs.join(',') !== [0, 1, 2, 3, 4].join(',')) {
+      return wx.showToast({
+        mask: true,
+        icon: 'none',
+        title: '提交失败，需要使用每一个批改符号。',
+      })
     }
 
     wx.setStorageSync('done', done)
@@ -550,12 +570,12 @@ Page({
     })
 
     const res = await this.AjaxSave(audio)
-    if(res.code !== 1){
-       return wx.showToast({
-         mask:true,
-         icon:'none',
-          title: res.message,
-        })
+    if (res.code !== 1) {
+      return wx.showToast({
+        mask: true,
+        icon: 'none',
+        title: res.message,
+      })
     }
     wx.hideLoading()
     wx.redirectTo({
