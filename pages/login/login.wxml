@@ -1,21 +1,28 @@
 <!--pages/login/login.wxml-->
 <view class="login">
-  <view class="input-wrap">
-    <view class="input-item">
-      <label>
-        账号
-      </label>
-      <input placeholder="请输入账号" type="text" placeholder-class="input" data-label="name" value="{{name}}" bindinput="input"></input>
-    </view>
+	<view class="input-wrap">
+		<view class="input-item">
+			<label>
+				账号
+			</label>
+			<input placeholder="请输入账号" type="text" placeholder-class="input" data-label="name" value="{{name}}" bindinput="input"></input>
+		</view>
 
 
-    <view class="input-item">
-      <label>
-        密码
-      </label>
-      <input placeholder="请输入密码" type="password" placeholder-class="input"  data-label="password" value="{{password}}" bindinput="input"></input>
-    </view>
-  </view>
+		<view class="input-item">
+			<label>
+				密码
+			</label>
+			<input placeholder="请输入密码" type="password" placeholder-class="input" data-label="password" value="{{password}}" bindinput="input"></input>
+		</view>
+	</view>
 
-  <button class="button" bindtap="login">登录</button>
+	<button class="button" bindtap="login">登录</button>
+
+	<view class="aside">
+		<view>方豆豆认证教师批改管理后台</view>
+
+		<view>申请账号及认证请联系电话： <text class="phone" bindtap="call">010-53360223</text>	</view>
+	</view>
+
 </view>

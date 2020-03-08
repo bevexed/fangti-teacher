@@ -1,6 +1,7 @@
 /* pages/login/login.wxss */
 
 .login {
+  position: relative;
   height: 100vh;
   background-image: url('https://fangti-mcdn.oss-cn-beijing.aliyuncs.com/appstatic/img/ft2/bg_mine@2x.png');
   background-size: 100vw;
@@ -57,4 +58,20 @@ label {
   letter-spacing: 1rpx;
   background: linear-gradient(90deg, #ffd322, #ffba00);
   box-shadow: 0 28rpx 20rpx -20rpx #ffd322;
+}
+
+.aside {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 40rpx;
+  font-size: 26rpx;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: rgba(144, 150, 163, 1);
+  text-align: center;
+}
+
+.phone{
+  color: #88E7E2;
 }

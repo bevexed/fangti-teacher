@@ -398,10 +398,26 @@ Page({
       })
     }
 
-    if (time < 6) {
+    if (!btnIndexs.includes(4)) {
+      return wx.showToast({
+        icon: 'none',
+        title: '您还没有给孩子展示示例',
+        mask: true
+      })
+    }
+
+    if (time < 60) {
       return wx.showToast({
         icon: 'none',
         title: '您的录音时长不够',
+        mask: true
+      })
+    }
+
+    if (time > 180) {
+      return wx.showToast({
+        icon: 'none',
+        title: '您的录音时长过长',
         mask: true
       })
     }
@@ -548,7 +564,7 @@ Page({
 
     const _btnIndexs = [...new Set(btnIndexs)].sort()
 
-    if (_btnIndexs.join(',') !== [0, 1, 2, 3, 4].join(',')) {
+    if (_btnIndexs.join(',') !== [0,  2,  4].join(',')) {
       return wx.showToast({
         mask: true,
         icon: 'none',

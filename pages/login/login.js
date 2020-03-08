@@ -106,5 +106,11 @@ Page({
     this.setData({
       [label]: value
     })
+  },
+
+  call(){
+    wx.makePhoneCall({
+      phoneNumber: '010-53360223',
+    })
   }
 })
